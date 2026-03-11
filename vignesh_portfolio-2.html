@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vignesh S — System Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+:root{
+  --bg:#060910;--bg2:#0c1018;--card:#0f1420;--card2:#141925;
+  --border:#1e2535;--border2:#283040;
+  --accent:#3b82f6;--aglow:rgba(59,130,246,0.12);
+  --green:#10b981;--yellow:#f59e0b;--red:#ef4444;
+  --text:#e2e8f4;--text2:#94a3b8;--text3:#4a5568;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  overflow-x:hidden;line-height:1.6;
+}
+
+/* ── BACKGROUND ── */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(59,130,246,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,.03) 1px,transparent 1px);
+  background-size:64px 64px;pointer-events:none;z-index:0;
+}
+.g1,.g2{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.g1{width:600px;height:600px;background:rgba(59,130,246,.07);top:-150px;left:-150px;animation:ga 18s ease-in-out infinite alternate}
+.g2{width:500px;height:500px;background:rgba(16,185,129,.06);bottom:-120px;right:-120px;animation:gb 22s ease-in-out infinite alternate}
+@keyframes ga{to{transform:translate(80px,100px)}}
+@keyframes gb{to{transform:translate(-80px,-80px)}}
+
+/* ── PARTICLES ── */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.p{position:absolute;border-radius:50%;animation:pfloat linear infinite}
+@keyframes pfloat{
+  0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:.4}
+  100%{transform:translateY(-100px) translateX(var(--dx)) scale(1);opacity:0}
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(6,9,16,.93);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);height:58px;
+  display:flex;align-items:center;
+}
+.ni{width:100%;max-width:1140px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.nb{font-family:'Space Mono',monospace;font-size:.82rem;color:var(--accent);text-decoration:none}
+.nb em{color:var(--text2);font-style:normal}
+.nl{display:flex;gap:3px;list-style:none}
+.nl a{color:var(--text2);text-decoration:none;font-size:.72rem;font-weight:500;padding:5px 10px;border-radius:6px;transition:all .2s}
+.nl a:hover{color:var(--accent);background:var(--aglow)}
+
+/* ── LAYOUT ── */
+.sec{padding:96px 0;position:relative;z-index:1}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+.lbl{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:.65rem;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
+.lbl::before{content:'';width:18px;height:1px;background:var(--accent)}
+h2.st{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:44px}
+h2.st span{color:var(--accent)}
+.sdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+/* ── SECTION SLIDE-IN ANIMATIONS ── */
+.slide-left{opacity:0;transform:translateX(-60px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.slide-right{opacity:0;transform:translateX(60px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.slide-up{opacity:0;transform:translateY(50px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.slide-zoom{opacity:0;transform:scale(.92);transition:opacity .6s ease,transform .6s ease}
+.slide-left.on,.slide-right.on,.slide-up.on,.slide-zoom.on{opacity:1;transform:none}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:58px;position:relative;z-index:1}
+.hl{display:grid;grid-template-columns:1fr 310px;gap:44px;align-items:center}
+
+/* TYPING CURSOR */
+.cursor{display:inline-block;width:3px;height:.9em;background:var(--accent);margin-left:2px;animation:blink 1s step-end infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);padding:6px 15px;border-radius:100px;font-size:.68rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;animation:fadeUp .5s ease both}
+.eyebrow::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}50%{box-shadow:0 0 0 7px rgba(16,185,129,0)}}
+h1.hn{font-size:clamp(3rem,7vw,5.2rem);font-weight:900;letter-spacing:-.04em;line-height:.95;margin-bottom:14px;animation:fadeUp .5s .08s ease both}
+h1.hn .ac{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hr{font-size:.92rem;color:var(--text2);margin-bottom:22px;animation:fadeUp .5s .14s ease both}
+.hr strong{color:var(--text);font-weight:600}
+.hb{font-size:.88rem;color:var(--text2);line-height:1.85;max-width:510px;margin-bottom:34px;animation:fadeUp .5s .2s ease both}
+.hcta{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:44px;animation:fadeUp .5s .26s ease both}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.03em;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+.bb{background:var(--accent);color:#fff}
+.bb:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.4)}
+.bg{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.bg:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;animation:fadeUp .5s .32s ease both}
+.sb{background:var(--card);padding:16px 12px;text-align:center;transition:background .2s}
+.sb:hover{background:var(--card2)}
+.sn{font-size:1.4rem;font-weight:800;color:var(--accent);font-family:'Space Mono',monospace;line-height:1}
+.sl{font-size:.6rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ID CARD */
+.idc{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:26px;position:relative;overflow:hidden;animation:fadeUp .5s .18s ease both}
+.idc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green))}
+.idav{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--green));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:13px;font-family:'Space Mono',monospace}
+.idn{font-size:.9rem;font-weight:700;margin-bottom:2px}
+.idt{font-size:.67rem;color:var(--accent);margin-bottom:14px;font-family:'Space Mono',monospace}
+.idr{display:flex;flex-direction:column;gap:10px}
+.idrow{display:flex;align-items:flex-start;gap:9px}
+.idico{font-size:.82rem;width:17px;flex-shrink:0;margin-top:1px}
+.idinf{font-size:.71rem;color:var(--text2);line-height:1.4}
+.idinf a{color:var(--accent);text-decoration:none}
+.idinf a:hover{text-decoration:underline}
+.iddiv{height:1px;background:var(--border);margin:13px 0}
+.idbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green);font-size:.65rem;padding:4px 11px;border-radius:100px;font-weight:600}
+.idbadge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+
+/* ── ABOUT ── */
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ac{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .25s;position:relative;overflow:hidden}
+.ac::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--green));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.ac:hover::after{transform:scaleX(1)}
+.ac:hover{border-color:var(--border2);transform:translateY(-3px)}
+.aci{font-size:1.4rem;margin-bottom:9px}
+.act{font-size:.83rem;font-weight:700;margin-bottom:7px}
+.acp{font-size:.79rem;color:var(--text2);line-height:1.75}
+
+/* ── SKILLS ── */
+.skl{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.sg{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .2s}
+.sg:hover{border-color:var(--border2)}
+.sgt{font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:13px;display:flex;align-items:center;gap:8px}
+.sgt::after{content:'';flex:1;height:1px;background:var(--border)}
+.stags{display:flex;flex-wrap:wrap;gap:7px}
+.stag{display:inline-flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-size:.74rem;font-weight:500;padding:5px 11px;border-radius:6px;transition:all .2s;cursor:default}
+.stag:hover{border-color:var(--accent);color:var(--accent);background:var(--aglow);transform:translateY(-1px)}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.db{background:var(--accent)}.dg{background:var(--green)}.dy{background:var(--yellow)}.dr{background:var(--red)}
+
+/* ── WATERFALL PROJECTS ── */
+.waterfall{
+  columns:3;column-gap:18px;
+}
+.wf-item{
+  break-inside:avoid;
+  margin-bottom:18px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:24px;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+  opacity:0;transform:translateY(40px);
+}
+.wf-item.on{opacity:1;transform:translateY(0)}
+.wf-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--green));
+  transform:scaleX(0);transform-origin:left;transition:transform .35s;
+}
+.wf-item:hover::before{transform:scaleX(1)}
+.wf-item:hover{
+  border-color:var(--accent);
+  transform:translateY(-6px);
+  box-shadow:0 20px 48px rgba(0,0,0,.5);
+}
+/* Featured card */
+.wf-featured{border-color:rgba(16,185,129,.3);background:linear-gradient(135deg,var(--card),rgba(16,185,129,.04))}
+.wf-featured:hover{border-color:var(--green)}
+.wf-featured::before{background:linear-gradient(90deg,var(--green),var(--accent))}
+
+.wf-num{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--text3);letter-spacing:.15em;margin-bottom:11px}
+.wf-ico{font-size:1.7rem;margin-bottom:12px}
+.wf-title{font-size:.95rem;font-weight:700;margin-bottom:10px;line-height:1.3}
+.wf-desc{font-size:.77rem;color:var(--text2);line-height:1.72;margin-bottom:16px;flex:1}
+.wf-tags{display:flex;flex-wrap:wrap;gap:5px}
+.wf-tag{font-size:.62rem;font-weight:600;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--accent);padding:3px 8px;border-radius:4px}
+.wf-tag.green{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);color:var(--green)}
+.wf-badge{display:inline-flex;align-items:center;gap:5px;font-size:.6rem;font-weight:700;color:var(--green);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);padding:3px 9px;border-radius:100px;margin-bottom:10px;letter-spacing:.05em}
+.wf-badge::before{content:'★';font-size:.55rem}
+
+/* ── TOOLS ── */
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 12px;text-align:center;transition:all .25s;cursor:default;position:relative;overflow:hidden}
+.tc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(59,130,246,.08),transparent);opacity:0;transition:opacity .2s}
+.tc:hover::after{opacity:1}
+.tc:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.tico{font-size:1.5rem;margin-bottom:7px}
+.tn{font-size:.75rem;font-weight:600;margin-bottom:3px}
+.tcat{font-size:.6rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase}
+
+/* ── EXPERIENCE TIMELINE ── */
+.etl{position:relative;padding-left:26px}
+.etl::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--green))}
+.ee{position:relative;margin-bottom:32px}
+.ee::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--bg),0 0 0 5px rgba(59,130,246,.3);animation:pulse 3s infinite}
+.ecard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;transition:all .2s}
+.ecard:hover{border-color:var(--border2);transform:translateX(4px)}
+.etop{display:flex;justify-content:space-between;align-items:flex-start;gap:11px;flex-wrap:wrap;margin-bottom:5px}
+.etit{font-size:1rem;font-weight:700}
+.ebadge{font-size:.65rem;font-weight:600;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:var(--accent);padding:4px 11px;border-radius:100px;white-space:nowrap}
+.esub{font-size:.75rem;color:var(--text2);margin-bottom:18px}
+.eitems{list-style:none;display:grid;gap:7px}
+.eitems li{font-size:.79rem;color:var(--text);padding-left:18px;position:relative;line-height:1.6}
+.eitems li::before{content:'▹';position:absolute;left:0;color:var(--accent);font-size:.73rem;top:1px}
+
+/* ── EDUCATION ── */
+.ecg{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.edl{display:flex;flex-direction:column;gap:11px}
+.edi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:19px 20px;display:flex;align-items:flex-start;gap:13px;transition:all .2s}
+.edi:hover{border-color:var(--border2);transform:translateX(4px)}
+.edd{width:9px;height:9px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.edeg{font-size:.84rem;font-weight:700;margin-bottom:3px}
+.esc{font-size:.73rem;color:var(--text2);margin-bottom:6px}
+.emeta{display:flex;gap:7px;flex-wrap:wrap}
+.echip{font-size:.61rem;font-weight:600;background:var(--bg2);border:1px solid var(--border2);color:var(--text3);padding:3px 8px;border-radius:4px}
+.echip.yr{color:var(--green)}
+.clist{display:flex;flex-direction:column;gap:11px}
+.cit{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:17px 18px;display:flex;align-items:center;gap:13px;transition:all .2s}
+.cit:hover{border-color:var(--yellow);transform:translateX(4px)}
+.cico{width:36px;height:36px;border-radius:8px;flex-shrink:0;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.cn{font-size:.8rem;font-weight:600;margin-bottom:2px}
+.ct{font-size:.68rem;color:var(--text3)}
+
+/* ── CONTACT ── */
+.cgl{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.cintro{font-size:.87rem;color:var(--text2);line-height:1.85;margin-bottom:22px}
+.clinks{display:flex;flex-direction:column;gap:10px}
+.clink{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 17px;text-decoration:none;transition:all .2s}
+.clink:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:0 4px 20px rgba(59,130,246,.1)}
+.clico{width:34px;height:34px;border-radius:8px;background:var(--aglow);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.cllbl{font-size:.62rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.clval{font-size:.78rem;color:var(--text);font-weight:500}
+.avc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;position:relative;overflow:hidden}
+.avc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--accent))}
+.avt{font-size:.8rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.avdot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.avl{list-style:none;display:flex;flex-direction:column;gap:9px}
+.avl li{font-size:.78rem;color:var(--text2);padding-left:17px;position:relative;line-height:1.5}
+.avl li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:.7rem;top:1px}
+
+footer{border-top:1px solid var(--border);padding:26px 0;text-align:center;font-size:.7rem;color:var(--text3);position:relative;z-index:1}
+footer span{color:var(--accent)}
+.sdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+/* GENERIC REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hl,.ecg,.cgl{grid-template-columns:1fr}
+  .idc{display:none}
+  .hs{grid-template-columns:repeat(2,1fr)}
+  .skl,.ag{grid-template-columns:1fr}
+  .waterfall{columns:2}
+  .tg{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:600px){
+  .wrap{padding:0 18px}
+  .nl{display:none}
+  .waterfall{columns:1}
+  .tg{grid-template-columns:1fr 1fr}
+  h1.hn{font-size:2.8rem}
+  h2.st{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+
+<div class="g1"></div>
+<div class="g2"></div>
+<div id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="ni">
+    <a href="#hero" class="nb">vignesh<em>.s()</em></a>
+    <ul class="nl">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="sec" id="hero" style="border:none">
+  <div class="wrap">
+    <div class="hl">
+      <div>
+        <div class="eyebrow">Open to Opportunities</div>
+        <h1 class="hn">Vignesh<br><span class="ac">S.</span></h1>
+        <p class="hr"><strong>System Engineer</strong> &nbsp;/&nbsp; IT Support Engineer &nbsp;·&nbsp; Panruti, Tamil Nadu</p>
+        <p class="hb">I build, secure, and automate IT infrastructure. From endpoint security and cloud administration to PowerShell automation and monitoring systems — keeping everything running clean, fast, and safe.</p>
+        <div class="hcta">
+          <a href="mailto:vigneshsigamani3303@gmail.com" class="btn bb">✉ Get in Touch</a>
+          <a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank" class="btn bg">LinkedIn ↗</a>
+        </div>
+        <div class="hs">
+          <div class="sb"><div class="sn">1+</div><div class="sl">Yrs Exp</div></div>
+          <div class="sb"><div class="sn">12</div><div class="sl">Skills</div></div>
+          <div class="sb"><div class="sn">3</div><div class="sl">Projects</div></div>
+          <div class="sb"><div class="sn">7.8</div><div class="sl">CGPA</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="idc">
+          <div class="idav">VS</div>
+          <div class="idn">Vignesh S</div>
+          <div class="idt">// system_engineer.exe</div>
+          <div class="idr">
+            <div class="idrow"><span class="idico">📧</span><span class="idinf"><a href="mailto:vigneshsigamani3303@gmail.com">vigneshsigamani3303@gmail.com</a></span></div>
+            <div class="idrow"><span class="idico">📱</span><span class="idinf">+91 93603 78863</span></div>
+            <div class="idrow"><span class="idico">📍</span><span class="idinf">Panruti, Cuddalore – 607103</span></div>
+            <div class="idrow"><span class="idico">🎓</span><span class="idinf">B.Tech IT · Mahendra Engineering College</span></div>
+            <div class="idrow"><span class="idico">🔗</span><span class="idinf"><a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank">LinkedIn Profile ↗</a></span></div>
+          </div>
+          <div class="iddiv"></div>
+          <div class="idbadge">Available for Work</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── ABOUT ── -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="lbl slide-left">About Me</div>
+    <h2 class="st slide-left">Who I <span>Am</span></h2>
+    <div class="ag">
+      <div class="ac slide-up" style="transition-delay:.0s">
+        <div class="aci">🖥️</div>
+        <div class="act">System Setup &amp; Configuration</div>
+        <p class="acp">End-to-end Windows OS installations, system configuration, desktop and laptop support — ensuring every machine is optimized and stable.</p>
+      </div>
+      <div class="ac slide-up" style="transition-delay:.1s">
+        <div class="aci">🌐</div>
+        <div class="act">Network Troubleshooting</div>
+        <p class="acp">From diagnosing connectivity issues to configuring VPN remote access, maintaining reliable network infrastructure and resolving outages fast.</p>
+      </div>
+      <div class="ac slide-up" style="transition-delay:.2s">
+        <div class="aci">🔐</div>
+        <div class="act">Security Implementations</div>
+        <p class="acp">Deploy Bitdefender endpoint protection, create Teramind monitoring policies, and analyze spam and phishing threats — protecting from all angles.</p>
+      </div>
+      <div class="ac slide-up" style="transition-delay:.3s">
+        <div class="aci">⚙️</div>
+        <div class="act">Automation Scripts</div>
+        <p class="acp">PowerShell scripts to automate repetitive IT workflows — from bulk user provisioning to call recording downloads — saving hours every week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── SKILLS ── -->
+<section class="sec" id="skills">
+  <div class="wrap">
+    <div class="lbl slide-right">Technical Skills</div>
+    <h2 class="st slide-right">What I <span>Know</span></h2>
+    <div class="skl">
+      <div class="sg slide-left" style="transition-delay:.0s">
+        <div class="sgt">System &amp; Network</div>
+        <div class="stags">
+          <span class="stag"><span class="dot db"></span>Windows OS Installation</span>
+          <span class="stag"><span class="dot db"></span>System Troubleshooting</span>
+          <span class="stag"><span class="dot db"></span>Desktop &amp; Laptop Support</span>
+          <span class="stag"><span class="dot db"></span>Network Support</span>
+          <span class="stag"><span class="dot db"></span>VPN Setup &amp; Remote Access</span>
+        </div>
+      </div>
+      <div class="sg slide-right" style="transition-delay:.1s">
+        <div class="sgt">Cloud &amp; Productivity</div>
+        <div class="stags">
+          <span class="stag"><span class="dot dg"></span>Microsoft Azure – Fundamentals</span>
+          <span class="stag"><span class="dot dg"></span>Office 365 Administration</span>
+          <span class="stag"><span class="dot dg"></span>Google Workspace (G Suite)</span>
+        </div>
+      </div>
+      <div class="sg slide-left" style="transition-delay:.2s">
+        <div class="sgt">Security &amp; Monitoring</div>
+        <div class="stags">
+          <span class="stag"><span class="dot dr"></span>Bitdefender Endpoint Security</span>
+          <span class="stag"><span class="dot dr"></span>Teramind – Rules &amp; Policies</span>
+          <span class="stag"><span class="dot dr"></span>Spam &amp; Phishing Analysis</span>
+          <span class="stag"><span class="dot dr"></span>Alert &amp; Report Generation</span>
+        </div>
+      </div>
+      <div class="sg slide-right" style="transition-delay:.3s">
+        <div class="sgt">Automation &amp; Communication</div>
+        <div class="stags">
+          <span class="stag"><span class="dot dy"></span>PowerShell Scripting</span>
+          <span class="stag"><span class="dot dy"></span>Twilio Configuration</span>
+          <span class="stag"><span class="dot dy"></span>Dialpad VoIP Support</span>
+          <span class="stag"><span class="dot dy"></span>Firebase Realtime DB</span>
+          <span class="stag"><span class="dot dy"></span>CSV Export &amp; Reporting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── PROJECTS (WATERFALL) ── -->
+<section class="sec" id="projects">
+  <div class="wrap">
+    <div class="lbl slide-left">Projects</div>
+    <h2 class="st slide-left">Real <span>Work</span></h2>
+
+    <div class="waterfall">
+
+      <!-- Card 1 — tall -->
+      <div class="wf-item">
+        <div class="wf-num">01 / PROJECT</div>
+        <div class="wf-ico">📡</div>
+        <div class="wf-title">Network Alert Monitoring System</div>
+        <p class="wf-desc">Designed and deployed a real-time monitoring alert system to detect network and system anomalies across IT infrastructure.<br><br>The system proactively identifies outages, performance degradation, and unusual traffic patterns — triggering alerts before they impact users. Significantly reduced downtime and improved mean time to resolution (MTTR) for the team.</p>
+        <div class="wf-tags">
+          <span class="wf-tag">Network Monitoring</span>
+          <span class="wf-tag">Alerting</span>
+          <span class="wf-tag">Incident Response</span>
+          <span class="wf-tag">Uptime</span>
+          <span class="wf-tag">IT Ops</span>
+        </div>
+      </div>
+
+      <!-- Card 2 — medium -->
+      <div class="wf-item">
+        <div class="wf-num">02 / PROJECT</div>
+        <div class="wf-ico">⚡</div>
+        <div class="wf-title">Dialpad Auto Call Downloader</div>
+        <p class="wf-desc">Built a PowerShell automation script that downloads Dialpad call recordings on a schedule using cookie-based authentication. Eliminated all manual downloads and saved several hours of repetitive work every week.</p>
+        <div class="wf-tags">
+          <span class="wf-tag">PowerShell</span>
+          <span class="wf-tag">Automation</span>
+          <span class="wf-tag">Dialpad</span>
+          <span class="wf-tag">Cookie Auth</span>
+          <span class="wf-tag">Scheduling</span>
+        </div>
+      </div>
+
+      <!-- Card 3 — featured tall -->
+      <div class="wf-item wf-featured">
+        <div class="wf-badge">Featured Project</div>
+        <div class="wf-num" style="color:var(--green)">03 / FEATURED</div>
+        <div class="wf-ico">🖥️</div>
+        <div class="wf-title">TechTrack — IT Management System</div>
+        <p class="wf-desc">A full-stack internal IT management web application built with Firebase Realtime Database.<br><br>
+          <strong style="color:var(--text);font-size:.78rem">Modules include:</strong><br><br>
+          <strong style="color:var(--green);font-size:.75rem">🗂 Asset Sheet</strong> <span style="font-size:.75rem">— Track laptops, peripherals, backup and dead assets with full service records.</span><br><br>
+          <strong style="color:var(--green);font-size:.75rem">⚡ System Performance</strong> <span style="font-size:.75rem">— Monthly user check-ins with system, team, and app scores plus physical damage reporting.</span><br><br>
+          <strong style="color:var(--green);font-size:.75rem">📈 Performance Dashboard</strong> <span style="font-size:.75rem">— Aggregated metrics across all users, auto-updated, with CSV export for every log.</span><br><br>
+          <strong style="color:var(--green);font-size:.75rem">🔐 User Management</strong> <span style="font-size:.75rem">— Admin-only panel to create and manage login credentials with role-based access control.</span>
+        </p>
+        <div class="wf-tags">
+          <span class="wf-tag green">Firebase</span>
+          <span class="wf-tag green">HTML/CSS/JS</span>
+          <span class="wf-tag green">Asset Tracking</span>
+          <span class="wf-tag green">Dashboard</span>
+          <span class="wf-tag green">CSV Export</span>
+          <span class="wf-tag green">RBAC</span>
+          <span class="wf-tag green">Real-time Sync</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── TOOLS ── -->
+<section class="sec" id="tools">
+  <div class="wrap">
+    <div class="lbl slide-right">Tools I Use</div>
+    <h2 class="st slide-right">My <span>Toolkit</span></h2>
+    <div class="tg">
+      <div class="tc rv" style="transition-delay:.00s"><div class="tico">🪟</div><div class="tn">Windows OS</div><div class="tcat">System</div></div>
+      <div class="tc rv" style="transition-delay:.05s"><div class="tico">📧</div><div class="tn">Office 365</div><div class="tcat">Productivity</div></div>
+      <div class="tc rv" style="transition-delay:.10s"><div class="tico">☁️</div><div class="tn">Microsoft Azure</div><div class="tcat">Cloud</div></div>
+      <div class="tc rv" style="transition-delay:.15s"><div class="tico">🟢</div><div class="tn">Google Workspace</div><div class="tcat">Productivity</div></div>
+      <div class="tc rv" style="transition-delay:.20s"><div class="tico">🔒</div><div class="tn">Bitdefender</div><div class="tcat">Security</div></div>
+      <div class="tc rv" style="transition-delay:.25s"><div class="tico">👁</div><div class="tn">Teramind</div><div class="tcat">Monitoring</div></div>
+      <div class="tc rv" style="transition-delay:.30s"><div class="tico">💻</div><div class="tn">PowerShell</div><div class="tcat">Automation</div></div>
+      <div class="tc rv" style="transition-delay:.35s"><div class="tico">📞</div><div class="tn">Twilio</div><div class="tcat">Communication</div></div>
+      <div class="tc rv" style="transition-delay:.40s"><div class="tico">📲</div><div class="tn">Dialpad</div><div class="tcat">VoIP</div></div>
+      <div class="tc rv" style="transition-delay:.45s"><div class="tico">🔥</div><div class="tn">Firebase</div><div class="tcat">Database</div></div>
+      <div class="tc rv" style="transition-delay:.50s"><div class="tico">🌐</div><div class="tn">VPN Tools</div><div class="tcat">Networking</div></div>
+      <div class="tc rv" style="transition-delay:.55s"><div class="tico">🤖</div><div class="tn">UiPath</div><div class="tcat">RPA</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── EXPERIENCE ── -->
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="lbl slide-left">Work Experience</div>
+    <h2 class="st slide-left">What I've <span>Done</span></h2>
+    <div class="etl">
+      <div class="ee slide-up">
+        <div class="ecard">
+          <div class="etop">
+            <div class="etit">System Engineer / IT Support Engineer</div>
+            <div class="ebadge">2024 – Present</div>
+          </div>
+          <div class="esub">Full-time · IT Infrastructure &amp; Support · Tamil Nadu, India</div>
+          <ul class="eitems">
+            <li>Provided end-to-end technical support for desktops, laptops, and enterprise applications across the organization.</li>
+            <li>Managed Office 365 and Google Workspace — user provisioning, mailbox management, license assignments, and policies.</li>
+            <li>Designed and implemented Teramind monitoring rules, security policies, and alert thresholds for compliance and activity tracking.</li>
+            <li>Configured and maintained VPN access for remote employees, ensuring secure and reliable connectivity.</li>
+            <li>Deployed and managed Bitdefender endpoint security — policies, scanning schedules, and threat responses across all devices.</li>
+            <li>Handled Twilio configuration, call routing setups, and issue resolution for voice communication pipelines.</li>
+            <li>Developed PowerShell automation scripts to eliminate repetitive IT tasks and reduce manual workload.</li>
+            <li>Conducted spam and phishing email analysis; trained the team on identifying and reporting threats.</li>
+            <li>Supported Dialpad VoIP operations — call flow management, user setup, and troubleshooting.</li>
+            <li>Built TechTrack — an internal IT management system using Firebase for asset tracking, performance monitoring, and dashboards.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── EDUCATION ── -->
+<section class="sec" id="education">
+  <div class="wrap">
+    <div class="lbl slide-right">Background</div>
+    <h2 class="st slide-right">Education &amp; <span>Certifications</span></h2>
+    <div class="ecg">
+      <div class="edl">
+        <div class="edi slide-left" style="transition-delay:.0s">
+          <div class="edd"></div>
+          <div>
+            <div class="edeg">B.Tech – Information Technology</div>
+            <div class="esc">Mahendra Engineering College, Namakkal</div>
+            <div class="emeta"><span class="echip yr">2020 – 2024</span><span class="echip">CGPA: 7.80</span></div>
+          </div>
+        </div>
+        <div class="edi slide-left" style="transition-delay:.1s">
+          <div class="edd" style="background:var(--green)"></div>
+          <div>
+            <div class="edeg">HSC – Higher Secondary Certificate</div>
+            <div class="esc">NLC Higher Secondary School, Neyveli</div>
+            <div class="emeta"><span class="echip yr">2019 – 2020</span></div>
+          </div>
+        </div>
+        <div class="edi slide-left" style="transition-delay:.2s">
+          <div class="edd" style="background:var(--yellow)"></div>
+          <div>
+            <div class="edeg">SSLC – Secondary School Leaving Certificate</div>
+            <div class="esc">Government Higher Secondary School, Keezhakuppam</div>
+            <div class="emeta"><span class="echip yr">2017 – 2018</span><span class="echip">82.8%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="clist">
+        <div class="cit slide-right" style="transition-delay:.0s">
+          <div class="cico">🤖</div>
+          <div><div class="cn">UiPath – Diploma of Completion</div><div class="ct">Robotic Process Automation · Online</div></div>
+        </div>
+        <div class="cit slide-right" style="transition-delay:.1s">
+          <div class="cico">☕</div>
+          <div><div class="cn">Java Programming Language</div><div class="ct">Professional Certification</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sdiv"></div>
+
+<!-- ── CONTACT ── -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="lbl slide-left">Get In Touch</div>
+    <h2 class="st slide-left">Let's <span>Connect</span></h2>
+    <div class="cgl">
+      <div>
+        <p class="cintro slide-up">I'm open to full-time roles, contract work, and freelance IT projects. Whether it's system setup, security implementation, automation scripting, or building internal tools — feel free to reach out.</p>
+        <div class="clinks">
+          <a href="mailto:vigneshsigamani3303@gmail.com" class="clink slide-up" style="transition-delay:.05s">
+            <div class="clico">✉</div>
+            <div><div class="cllbl">Email</div><div class="clval">vigneshsigamani3303@gmail.com</div></div>
+          </a>
+          <a href="tel:+919360378863" class="clink slide-up" style="transition-delay:.1s">
+            <div class="clico">📱</div>
+            <div><div class="cllbl">Phone</div><div class="clval">+91 93603 78863</div></div>
+          </a>
+          <a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank" class="clink slide-up" style="transition-delay:.15s">
+            <div class="clico">🔗</div>
+            <div><div class="cllbl">LinkedIn</div><div class="clval">vignesh-s-923a97295 ↗</div></div>
+          </a>
+          <div class="clink slide-up" style="transition-delay:.2s;cursor:default">
+            <div class="clico">📍</div>
+            <div><div class="cllbl">Location</div><div class="clval">Panruti, Cuddalore – 607103, TN</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="avc slide-right">
+        <div class="avt"><span class="avdot"></span>Currently Available For</div>
+        <ul class="avl">
+          <li>System Setup &amp; Configuration</li>
+          <li>Network Troubleshooting &amp; Support</li>
+          <li>Security Implementation (Endpoint &amp; Email)</li>
+          <li>PowerShell / Automation Scripting</li>
+          <li>Monitoring Tool Configuration</li>
+          <li>Reports &amp; Dashboard Development</li>
+          <li>Office 365 / Google Workspace Admin</li>
+          <li>VPN &amp; Remote Access Setup</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2025 <span>Vignesh S</span> &nbsp;·&nbsp; System Engineer &nbsp;·&nbsp; Built with care</p>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL ANIMATIONS ──
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    // stagger siblings
+    const sibs = [...el.parentElement.children].filter(c =>
+      c.classList.contains('slide-left') ||
+      c.classList.contains('slide-right') ||
+      c.classList.contains('slide-up') ||
+      c.classList.contains('slide-zoom') ||
+      c.classList.contains('rv')
+    );
+    const idx = sibs.indexOf(el);
+    const base = parseFloat(el.style.transitionDelay) || 0;
+    setTimeout(() => el.classList.add('on'), base * 1000 + idx * 55);
+    io.unobserve(el);
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.slide-left,.slide-right,.slide-up,.slide-zoom,.rv').forEach(el => io.observe(el));
+
+// ── WATERFALL REVEAL ──
+const wio = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (!e.isIntersecting) return;
+    setTimeout(() => e.target.classList.add('on'), i * 120);
+    wio.unobserve(e.target);
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.wf-item').forEach(el => wio.observe(el));
+
+// ── FLOATING PARTICLES ──
+const pc = document.getElementById('particles');
+const colors = ['rgba(59,130,246,.5)','rgba(16,185,129,.5)','rgba(245,158,11,.4)'];
+for (let i = 0; i < 22; i++) {
+  const p = document.createElement('div');
+  p.className = 'p';
+  const size = Math.random() * 4 + 2;
+  const dx = (Math.random() - 0.5) * 200;
+  p.style.cssText = `
+    width:${size}px;height:${size}px;
+    left:${Math.random()*100}%;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    --dx:${dx}px;
+    animation-duration:${Math.random()*14+10}s;
+    animation-delay:${Math.random()*10}s;
+  `;
+  pc.appendChild(p);
+}
+</script>
+</body>
+</html>
