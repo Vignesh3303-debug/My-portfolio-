@@ -1,767 +1,1281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vignesh S — System Engineer</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Vignesh S — System Engineer & Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
-/* No external fonts - using system stack */
-
+/* ══════════════════════════════════
+   VARIABLES
+══════════════════════════════════ */
 :root{
-  --bg:#060910;--bg2:#0c1018;--card:#0f1420;--card2:#141925;
-  --border:#1e2535;--border2:#283040;
-  --accent:#3b82f6;--aglow:rgba(59,130,246,0.12);
-  --green:#10b981;--yellow:#f59e0b;--red:#ef4444;
-  --text:#e2e8f4;--text2:#94a3b8;--text3:#4a5568;
+  --bg:#faf8ff;
+  --ink:#f0ecff;
+  --card:#ffffff;
+  --card2:#f5f0ff;
+  --border:rgba(100,60,200,.12);
+  --glow:#6c47ff;
+  --glow2:#9b59ff;
+  --cyan:#7c3aed;
+  --lime:#5b21b6;
+  --amber:#7c3aed;
+  --text:#1a0a3a;
+  --sub:#6b5a8a;
+  --dim:#a090c0;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+
+/* ══════════════════════════════════
+   RESET
+══════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  font-family:'Cabinet Grotesk',sans-serif;
   background:var(--bg);color:var(--text);
-  overflow-x:hidden;line-height:1.6;
+  overflow-x:hidden;cursor:none;
 }
 
-/* ── BACKGROUND ── */
-body::before{
-  content:'';position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(59,130,246,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(59,130,246,.03) 1px,transparent 1px);
-  background-size:64px 64px;pointer-events:none;z-index:0;
+/* ══════════════════════════════════
+   CUSTOM CURSOR
+══════════════════════════════════ */
+#cursor{
+  position:fixed;width:12px;height:12px;background:var(--glow);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);transition:transform .1s,width .2s,height .2s,opacity .2s;
+  mix-blend-mode:screen;
 }
-.g1,.g2{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
-.g1{width:600px;height:600px;background:rgba(59,130,246,.07);top:-150px;left:-150px;animation:ga 18s ease-in-out infinite alternate}
-.g2{width:500px;height:500px;background:rgba(16,185,129,.06);bottom:-120px;right:-120px;animation:gb 22s ease-in-out infinite alternate}
-@keyframes ga{to{transform:translate(80px,100px)}}
-@keyframes gb{to{transform:translate(-80px,-80px)}}
-
-/* ── PARTICLES ── */
-#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.p{position:absolute;border-radius:50%;animation:pfloat linear infinite}
-@keyframes pfloat{
-  0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0}
-  10%{opacity:1}
-  90%{opacity:.4}
-  100%{transform:translateY(-100px) translateX(var(--dx)) scale(1);opacity:0}
+#cursor-ring{
+  position:fixed;width:36px;height:36px;border:1.5px solid var(--glow);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);transition:all .15s ease;
+  mix-blend-mode:screen;opacity:.6;
 }
 
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  background:rgba(6,9,16,.93);backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);height:58px;
-  display:flex;align-items:center;
-}
-.ni{width:100%;max-width:1140px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
-.nb{font-family:'Courier New',Courier,monospace;font-size:.82rem;color:var(--accent);text-decoration:none}
-.nb em{color:var(--text2);font-style:normal}
-.nl{display:flex;gap:3px;list-style:none}
-.nl a{color:var(--text2);text-decoration:none;font-size:.72rem;font-weight:500;padding:5px 10px;border-radius:6px;transition:all .2s}
-.nl a:hover{color:var(--accent);background:var(--aglow)}
+/* ══════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════ */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:var(--glow);border-radius:4px;}
 
-/* ── LAYOUT ── */
-.sec{padding:96px 0;position:relative;z-index:1}
-.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
-.lbl{display:inline-flex;align-items:center;gap:8px;font-family:'Courier New',Courier,monospace;font-size:.65rem;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px}
-.lbl::before{content:'';width:18px;height:1px;background:var(--accent)}
-h2.st{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:44px}
-h2.st span{color:var(--accent)}
-.sdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-
-/* ── SECTION SLIDE-IN ANIMATIONS ── */
-.slide-left{opacity:0;transform:translateX(-60px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-.slide-right{opacity:0;transform:translateX(60px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-.slide-up{opacity:0;transform:translateY(50px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
-.slide-zoom{opacity:0;transform:scale(.92);transition:opacity .6s ease,transform .6s ease}
-.slide-left.on,.slide-right.on,.slide-up.on,.slide-zoom.on{opacity:1;transform:none}
-
-/* ── HERO ── */
-#hero{min-height:100vh;display:flex;align-items:center;padding-top:58px;position:relative;z-index:1}
-.hl{display:grid;grid-template-columns:1fr 310px;gap:44px;align-items:center}
-
-/* TYPING CURSOR */
-.cursor{display:inline-block;width:3px;height:.9em;background:var(--accent);margin-left:2px;animation:blink 1s step-end infinite;vertical-align:middle}
+/* ══════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(108,71,255,.3)}50%{box-shadow:0 0 60px rgba(108,71,255,.7),0 0 100px rgba(108,71,255,.3)}}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}30%{transform:translate(3%,-2%)}50%{transform:translate(-1%,4%)}70%{transform:translate(-3%,1%)}90%{transform:translate(2%,-1%)}}
+@keyframes slideRight{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+@keyframes countUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orbit{from{transform:rotate(0deg) translateX(80px) rotate(0deg)}to{transform:rotate(360deg) translateX(80px) rotate(-360deg)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
-.eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25);padding:6px 15px;border-radius:100px;font-size:.68rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px;animation:fadeUp .5s ease both}
-.eyebrow::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}50%{box-shadow:0 0 0 7px rgba(16,185,129,0)}}
-h1.hn{font-size:clamp(3rem,7vw,5.2rem);font-weight:900;letter-spacing:-.04em;line-height:.95;margin-bottom:14px;animation:fadeUp .5s .08s ease both}
-h1.hn .ac{background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hr{font-size:.92rem;color:var(--text2);margin-bottom:22px;animation:fadeUp .5s .14s ease both}
-.hr strong{color:var(--text);font-weight:600}
-.hb{font-size:.88rem;color:var(--text2);line-height:1.85;max-width:510px;margin-bottom:34px;animation:fadeUp .5s .2s ease both}
-.hcta{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:44px;animation:fadeUp .5s .26s ease both}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:8px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.03em;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
-.bb{background:var(--accent);color:#fff}
-.bb:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.4)}
-.bg{background:transparent;color:var(--text);border:1px solid var(--border2)}
-.bg:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-.hs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;animation:fadeUp .5s .32s ease both}
-.sb{background:var(--card);padding:16px 12px;text-align:center;transition:background .2s}
-.sb:hover{background:var(--card2)}
-.sn{font-size:1.4rem;font-weight:800;color:var(--accent);font-family:'Courier New',Courier,monospace;line-height:1}
-.sl{font-size:.6rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-
-/* ID CARD */
-.idc{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:26px;position:relative;overflow:hidden;animation:fadeUp .5s .18s ease both}
-.idc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green))}
-.idav{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--green));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:13px;font-family:'Courier New',Courier,monospace}
-.idn{font-size:.9rem;font-weight:700;margin-bottom:2px}
-.idt{font-size:.67rem;color:var(--accent);margin-bottom:14px;font-family:'Courier New',Courier,monospace}
-.idr{display:flex;flex-direction:column;gap:10px}
-.idrow{display:flex;align-items:flex-start;gap:9px}
-.idico{font-size:.82rem;width:17px;flex-shrink:0;margin-top:1px}
-.idinf{font-size:.71rem;color:var(--text2);line-height:1.4}
-.idinf a{color:var(--accent);text-decoration:none}
-.idinf a:hover{text-decoration:underline}
-.iddiv{height:1px;background:var(--border);margin:13px 0}
-.idbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green);font-size:.65rem;padding:4px 11px;border-radius:100px;font-weight:600}
-.idbadge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-
-/* ── ABOUT ── */
-.ag{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.ac{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .25s;position:relative;overflow:hidden}
-.ac::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--green));transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.ac:hover::after{transform:scaleX(1)}
-.ac:hover{border-color:var(--border2);transform:translateY(-3px)}
-.aci{font-size:1.4rem;margin-bottom:9px}
-.act{font-size:.83rem;font-weight:700;margin-bottom:7px}
-.acp{font-size:.79rem;color:var(--text2);line-height:1.75}
-
-/* ── SKILLS ── */
-.skl{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.sg{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:border-color .2s}
-.sg:hover{border-color:var(--border2)}
-.sgt{font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:13px;display:flex;align-items:center;gap:8px}
-.sgt::after{content:'';flex:1;height:1px;background:var(--border)}
-.stags{display:flex;flex-wrap:wrap;gap:7px}
-.stag{display:inline-flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-size:.74rem;font-weight:500;padding:5px 11px;border-radius:6px;transition:all .2s;cursor:default}
-.stag:hover{border-color:var(--accent);color:var(--accent);background:var(--aglow);transform:translateY(-1px)}
-.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.db{background:var(--accent)}.dg{background:var(--green)}.dy{background:var(--yellow)}.dr{background:var(--red)}
-
-/* ── WATERFALL PROJECTS ── */
-.waterfall{
-  columns:3;column-gap:18px;
+/* ══════════════════════════════════
+   GRAIN OVERLAY
+══════════════════════════════════ */
+body::after{
+  content:'';position:fixed;inset:-50%;width:200%;height:200%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9997;animation:grain 8s steps(10) infinite;opacity:.15;
 }
-.wf-item{
-  break-inside:avoid;
-  margin-bottom:18px;
+
+/* ══════════════════════════════════
+   NAV
+══════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(250,248,255,.92);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(24px);
+  box-shadow:0 1px 20px rgba(108,71,255,.1);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.12em;
+  color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px;
+}
+.nav-logo-orb{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--glow),var(--glow2));
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+  font-family:'JetBrains Mono',monospace;color:#fff;font-weight:700;
+  box-shadow:0 0 16px rgba(108,71,255,.5);
+}
+.nav-links{display:flex;align-items:center;gap:2px;}
+.nav-links a{
+  padding:7px 14px;border-radius:6px;font-size:13px;font-weight:600;
+  color:var(--sub);text-decoration:none;transition:all .2s;
+  font-family:'JetBrains Mono',monospace;
+}
+.nav-links a:hover{color:var(--text);background:rgba(108,71,255,.08);}
+.nav-status{
+  display:flex;align-items:center;gap:8px;padding:6px 14px;
+  border:1px solid rgba(108,71,255,.3);border-radius:20px;
+  font-size:12px;font-weight:700;color:var(--glow);
+  font-family:'JetBrains Mono',monospace;letter-spacing:.05em;
+  background:rgba(108,71,255,.06);
+}
+.nav-status-dot{width:6px;height:6px;border-radius:50%;background:var(--glow);animation:blink 1.5s infinite;}
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding-top:64px;
+  background:linear-gradient(160deg,#f5f3ff 0%,#ede9ff 60%,#e0d7ff 100%);
+}
+
+/* Background mesh */
+.hero-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(108,71,255,.12), transparent),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(155,89,255,.08), transparent),
+    radial-gradient(ellipse 50% 40% at 50% 10%, rgba(124,58,237,.06), transparent);
+}
+
+/* Scan line */
+.scan-line{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(108,71,255,.5),transparent);
+  animation:scan 6s linear infinite;pointer-events:none;
+}
+
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;}
+.orb-1{width:400px;height:400px;background:rgba(108,71,255,.1);right:-100px;top:10%;animation:float 8s ease-in-out infinite;}
+.orb-2{width:300px;height:300px;background:rgba(155,89,255,.07);left:-50px;bottom:20%;animation:float 10s ease-in-out infinite reverse;}
+.orb-3{width:200px;height:200px;background:rgba(124,58,237,.06);right:30%;bottom:10%;animation:float 7s ease-in-out infinite 2s;}
+
+/* Grid */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(108,71,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(108,71,255,.08) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 30%,transparent 100%);
+}
+
+.hero-inner{
+  max-width:1200px;margin:0 auto;padding:0 48px;
+  display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center;
+  position:relative;z-index:2;width:100%;
+}
+
+/* Code tag */
+.code-tag{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  color:var(--glow);background:rgba(108,71,255,.1);
+  border:1px solid rgba(108,71,255,.3);border-radius:4px;
+  padding:4px 10px;display:inline-block;margin-bottom:24px;
+  animation:fadeUp .5s ease both;letter-spacing:.1em;
+}
+
+/* Big name */
+.hero-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,9vw,120px);
+  line-height:.95;letter-spacing:.03em;
+  margin-bottom:16px;animation:fadeUp .5s .1s ease both;
+}
+.hero-name-line1{display:block;color:var(--text);}
+.hero-name-line2{
+  display:block;
+  background:linear-gradient(90deg,var(--glow),var(--glow2),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-size:200% auto;animation:shimmer 4s linear infinite;
+}
+
+/* Title pill row */
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;animation:fadeUp .5s .2s ease both;}
+.hero-pill{
+  padding:6px 14px;border-radius:4px;font-size:12px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.pill-v{background:rgba(108,71,255,.15);color:#a88bff;border:1px solid rgba(108,71,255,.3);}
+.pill-d{background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.2);}
+.pill-l{background:rgba(255,255,255,.05);color:var(--sub);border:1px solid var(--border);}
+
+.hero-desc{
+  font-size:16px;color:var(--sub);line-height:1.75;max-width:520px;
+  margin-bottom:36px;animation:fadeUp .5s .3s ease both;
+}
+.hero-desc b{color:var(--text);}
+
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .5s .4s ease both;}
+.btn-glow{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 28px;border-radius:6px;font-size:14px;font-weight:800;
+  text-decoration:none;letter-spacing:.04em;font-family:inherit;
+  background:linear-gradient(135deg,var(--glow),var(--glow2));
+  color:#fff;border:none;cursor:none;transition:all .2s;
+  box-shadow:0 4px 24px rgba(108,71,255,.4),0 0 0 0 rgba(108,71,255,.4);
+}
+.btn-glow:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(108,71,255,.6),0 0 60px rgba(108,71,255,.2);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 28px;border-radius:6px;font-size:14px;font-weight:800;
+  text-decoration:none;letter-spacing:.04em;font-family:inherit;
+  background:transparent;color:var(--text);
+  border:1px solid rgba(255,255,255,.15);cursor:none;transition:all .2s;
+}
+.btn-outline:hover{border-color:rgba(108,71,255,.5);color:var(--glow);background:rgba(108,71,255,.06);}
+
+/* Hero card */
+.hero-card{
   background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:24px;
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-  transition:all .3s cubic-bezier(.22,1,.36,1);
-  opacity:0;transform:translateY(40px);
+  border-radius:20px;padding:28px;position:relative;overflow:hidden;
+  animation:fadeUp .5s .2s ease both;
+  box-shadow:0 8px 40px rgba(108,71,255,.12);
 }
-.wf-item.on{opacity:1;transform:translateY(0)}
-.wf-item::before{
+.hero-card::before{
+  content:'';position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,rgba(108,71,255,.08),rgba(255,77,148,.04));
+  pointer-events:none;
+}
+.hero-card-corner{
+  position:absolute;top:16px;right:16px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--glow);
+  background:rgba(108,71,255,.12);padding:3px 8px;border-radius:3px;letter-spacing:.08em;
+}
+.hero-avatar-wrap{position:relative;display:inline-block;margin-bottom:18px;}
+.hero-avatar{
+  width:72px;height:72px;border-radius:16px;
+  background:linear-gradient(135deg,var(--glow),var(--glow2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:.1em;
+  position:relative;z-index:1;
+}
+.avatar-ring-outer{
+  position:absolute;inset:-6px;border-radius:22px;
+  border:1px solid rgba(108,71,255,.3);animation:spin-slow 12s linear infinite;
+}
+.avatar-ring-outer::before{
+  content:'';position:absolute;top:-3px;left:50%;transform:translateX(-50%);
+  width:6px;height:6px;border-radius:50%;background:var(--glow);
+}
+.hero-card-name{font-size:18px;font-weight:900;color:var(--text);margin-bottom:2px;}
+.hero-card-sub{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--glow);
+  margin-bottom:20px;font-weight:700;
+}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
+.stat-box{
+  background:var(--ink);border:1px solid var(--border);
+  border-radius:10px;padding:12px;text-align:center;
+}
+.stat-num{font-family:'Bebas Neue',monospace;font-size:28px;line-height:1;
+  background:linear-gradient(135deg,var(--glow),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-lbl{font-size:10px;color:var(--sub);margin-top:3px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.card-links{display:flex;flex-direction:column;gap:5px;}
+.card-link{
+  display:flex;align-items:center;gap:9px;padding:8px 10px;
+  border-radius:8px;font-size:12px;color:var(--sub);text-decoration:none;
+  transition:all .15s;font-family:'JetBrains Mono',monospace;
+}
+.card-link:hover{background:rgba(108,71,255,.06);color:var(--text);}
+.card-link-dot{width:4px;height:4px;border-radius:50%;background:var(--glow);flex-shrink:0;}
+
+/* ══════════════════════════════════
+   MARQUEE STRIP
+══════════════════════════════════ */
+.marquee-wrap{
+  overflow:hidden;padding:16px 0;background:linear-gradient(90deg,var(--glow),var(--glow2));
+  border-top:none;border-bottom:none;
+  position:relative;z-index:2;
+}
+.marquee-track{
+  display:flex;gap:0;white-space:nowrap;
+  animation:marquee 20s linear infinite;
+}
+.marquee-item{
+  display:inline-flex;align-items:center;gap:16px;padding:0 28px;
+  font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.12em;
+  color:rgba(255,255,255,.7);
+}
+.marquee-item b{color:#fff;}
+.marquee-sep{color:rgba(255,255,255,.4);font-size:20px;}
+
+/* ══════════════════════════════════
+   SECTION BASE
+══════════════════════════════════ */
+section{padding:100px 0;position:relative;}
+.container{max-width:1200px;margin:0 auto;padding:0 48px;}
+.sec-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  color:var(--glow);text-transform:uppercase;letter-spacing:.2em;
+  margin-bottom:8px;display:flex;align-items:center;gap:10px;
+}
+.sec-label::before{content:'';width:24px;height:1px;background:var(--glow);}
+h2.sec-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(42px,5vw,64px);letter-spacing:.04em;
+  color:var(--text);margin-bottom:56px;line-height:1;
+}
+/* Dark section overrides */
+#workareas .sec-label,#education .sec-label,#experience .sec-label{color:rgba(255,255,255,.75);}
+#workareas .sec-label::before,#education .sec-label::before,#experience .sec-label::before{background:rgba(255,255,255,.75);}
+#workareas h2.sec-title,#education h2.sec-title,#experience h2.sec-title{color:#fff;}
+/* main title on white sections stays dark via var(--text) */
+#workareas h2.sec-title span,#education h2.sec-title span,#experience h2.sec-title span{
+  background:linear-gradient(90deg,#fff,rgba(220,210,255,.8));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+h2.sec-title span{
+  background:linear-gradient(90deg,var(--glow),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* ══════════════════════════════════
+   ABOUT
+══════════════════════════════════ */
+#about{background:#fff;}
+.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.about-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:28px;position:relative;overflow:hidden;
+  transition:all .25s;box-shadow:0 2px 16px rgba(108,71,255,.07);
+}
+.about-card::after{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--accent),var(--green));
-  transform:scaleX(0);transform-origin:left;transition:transform .35s;
+  background:linear-gradient(90deg,var(--glow),var(--glow2));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
 }
-.wf-item:hover::before{transform:scaleX(1)}
-.wf-item:hover{
-  border-color:var(--accent);
-  transform:translateY(-6px);
-  box-shadow:0 20px 48px rgba(0,0,0,.5);
+.about-card:hover::after{transform:scaleX(1);}
+.about-card:hover{border-color:rgba(108,71,255,.4);transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(108,71,255,.15);}
+.about-num{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;
+  background:linear-gradient(135deg,rgba(108,71,255,.25),transparent);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  position:absolute;top:16px;right:20px;line-height:1;
 }
-/* Featured card */
-.wf-featured{border-color:rgba(16,185,129,.3);background:linear-gradient(135deg,var(--card),rgba(16,185,129,.04))}
-.wf-featured:hover{border-color:var(--green)}
-.wf-featured::before{background:linear-gradient(90deg,var(--green),var(--accent))}
-
-.wf-num{font-family:'Courier New',Courier,monospace;font-size:.6rem;color:var(--text3);letter-spacing:.15em;margin-bottom:11px}
-.wf-ico{font-size:1.7rem;margin-bottom:12px}
-.wf-title{font-size:.95rem;font-weight:700;margin-bottom:10px;line-height:1.3}
-.wf-desc{font-size:.77rem;color:var(--text2);line-height:1.72;margin-bottom:16px;flex:1}
-.wf-tags{display:flex;flex-wrap:wrap;gap:5px}
-.wf-tag{font-size:.62rem;font-weight:600;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--accent);padding:3px 8px;border-radius:4px}
-.wf-tag.green{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);color:var(--green)}
-.wf-badge{display:inline-flex;align-items:center;gap:5px;font-size:.6rem;font-weight:700;color:var(--green);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);padding:3px 9px;border-radius:100px;margin-bottom:10px;letter-spacing:.05em}
-.wf-badge::before{content:'★';font-size:.55rem}
-
-/* ── TOOLS ── */
-.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.tc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 12px;text-align:center;transition:all .25s;cursor:default;position:relative;overflow:hidden}
-.tc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(59,130,246,.08),transparent);opacity:0;transition:opacity .2s}
-.tc:hover::after{opacity:1}
-.tc:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
-.tico{font-size:1.5rem;margin-bottom:7px}
-.tn{font-size:.75rem;font-weight:600;margin-bottom:3px}
-.tcat{font-size:.6rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase}
-
-/* ── EXPERIENCE TIMELINE ── */
-.etl{position:relative;padding-left:26px}
-.etl::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--accent),var(--green))}
-.ee{position:relative;margin-bottom:32px}
-.ee::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--bg),0 0 0 5px rgba(59,130,246,.3);animation:pulse 3s infinite}
-.ecard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;transition:all .2s}
-.ecard:hover{border-color:var(--border2);transform:translateX(4px)}
-.etop{display:flex;justify-content:space-between;align-items:flex-start;gap:11px;flex-wrap:wrap;margin-bottom:5px}
-.etit{font-size:1rem;font-weight:700}
-.ebadge{font-size:.65rem;font-weight:600;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:var(--accent);padding:4px 11px;border-radius:100px;white-space:nowrap}
-.esub{font-size:.75rem;color:var(--text2);margin-bottom:18px}
-.eitems{list-style:none;display:grid;gap:7px}
-.eitems li{font-size:.79rem;color:var(--text);padding-left:18px;position:relative;line-height:1.6}
-.eitems li::before{content:'▹';position:absolute;left:0;color:var(--accent);font-size:.73rem;top:1px}
-
-/* ── EDUCATION ── */
-.ecg{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.edl{display:flex;flex-direction:column;gap:11px}
-.edi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:19px 20px;display:flex;align-items:flex-start;gap:13px;transition:all .2s}
-.edi:hover{border-color:var(--border2);transform:translateX(4px)}
-.edd{width:9px;height:9px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
-.edeg{font-size:.84rem;font-weight:700;margin-bottom:3px}
-.esc{font-size:.73rem;color:var(--text2);margin-bottom:6px}
-.emeta{display:flex;gap:7px;flex-wrap:wrap}
-.echip{font-size:.61rem;font-weight:600;background:var(--bg2);border:1px solid var(--border2);color:var(--text3);padding:3px 8px;border-radius:4px}
-.echip.yr{color:var(--green)}
-.clist{display:flex;flex-direction:column;gap:11px}
-.cit{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:17px 18px;display:flex;align-items:center;gap:13px;transition:all .2s}
-.cit:hover{border-color:var(--yellow);transform:translateX(4px)}
-.cico{width:36px;height:36px;border-radius:8px;flex-shrink:0;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);display:flex;align-items:center;justify-content:center;font-size:.95rem}
-.cn{font-size:.8rem;font-weight:600;margin-bottom:2px}
-.ct{font-size:.68rem;color:var(--text3)}
-
-/* ── CONTACT ── */
-.cgl{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
-.cintro{font-size:.87rem;color:var(--text2);line-height:1.85;margin-bottom:22px}
-.clinks{display:flex;flex-direction:column;gap:10px}
-.clink{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 17px;text-decoration:none;transition:all .2s}
-.clink:hover{border-color:var(--accent);transform:translateX(4px);box-shadow:0 4px 20px rgba(59,130,246,.1)}
-.clico{width:34px;height:34px;border-radius:8px;background:var(--aglow);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-.cllbl{font-size:.62rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
-.clval{font-size:.78rem;color:var(--text);font-weight:500}
-.avc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;position:relative;overflow:hidden}
-.avc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--accent))}
-.avt{font-size:.8rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.avdot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-.avl{list-style:none;display:flex;flex-direction:column;gap:9px}
-.avl li{font-size:.78rem;color:var(--text2);padding-left:17px;position:relative;line-height:1.5}
-.avl li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:.7rem;top:1px}
-
-footer{border-top:1px solid var(--border);padding:26px 0;text-align:center;font-size:.7rem;color:var(--text3);position:relative;z-index:1}
-footer span{color:var(--accent)}
-.sdiv{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-
-/* GENERIC REVEAL */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
-.rv.on{opacity:1;transform:translateY(0)}
-
-/* RESPONSIVE */
-@media(max-width:960px){
-  .hl,.ecg,.cgl{grid-template-columns:1fr}
-  .idc{display:none}
-  .hs{grid-template-columns:repeat(2,1fr)}
-  .skl,.ag{grid-template-columns:1fr}
-  .waterfall{columns:2}
-  .tg{grid-template-columns:repeat(3,1fr)}
+.about-icon-box{
+  width:44px;height:44px;border-radius:10px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  margin-bottom:14px;background:rgba(108,71,255,.1);
 }
-@media(max-width:600px){
-  .wrap{padding:0 18px}
-  .nl{display:none}
-  .waterfall{columns:1}
-  .tg{grid-template-columns:1fr 1fr}
-  h1.hn{font-size:2.8rem}
-  h2.st{font-size:1.7rem}
+.about-card h3{font-size:16px;font-weight:900;color:#1a1040;margin-bottom:8px;}
+.about-card p{font-size:13px;color:#5a4a80;line-height:1.7;}
+
+/* ══════════════════════════════════
+   SKILLS
+══════════════════════════════════ */
+#skills{background:var(--bg);}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.skill-cat{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:24px;transition:all .2s;
+  position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(108,71,255,.06);
+}
+.skill-cat:hover{border-color:rgba(108,71,255,.4);transform:translateY(-3px);box-shadow:0 8px 32px rgba(108,71,255,.12);}
+.skill-cat-top{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;
+}
+.skill-cat-name{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  color:var(--glow);text-transform:uppercase;letter-spacing:.1em;
+}
+.skill-count{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;
+  background:linear-gradient(90deg,var(--glow),var(--glow2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.stag{
+  padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;
+  border:1px solid transparent;letter-spacing:.03em;transition:all .15s;cursor:default;
+}
+.stag:hover{transform:scale(1.06);}
+/* NEW badge */
+.stag.no-new::after{
+  content:'↑';font-size:9px;font-weight:900;
+  background:var(--lime);color:#000;padding:1px 4px;border-radius:2px;
+  margin-left:4px;vertical-align:middle;
+}
+/* cat themes */
+.cat-sys .stag{background:rgba(0,229,255,.06);color:#67e8f9;border-color:rgba(0,229,255,.15);}
+.cat-cloud .stag{background:rgba(59,130,246,.06);color:#93c5fd;border-color:rgba(59,130,246,.15);}
+.cat-sec .stag{background:rgba(239,68,68,.06);color:#fca5a5;border-color:rgba(239,68,68,.15);}
+.cat-be .stag{background:rgba(108,71,255,.08);color:#c4b5fd;border-color:rgba(108,71,255,.2);}
+.cat-fe .stag{background:rgba(251,191,36,.06);color:#fde68a;border-color:rgba(251,191,36,.15);}
+.cat-db .stag{background:rgba(34,197,94,.06);color:#86efac;border-color:rgba(34,197,94,.15);}
+.cat-ai .stag{background:rgba(255,77,148,.06);color:#f9a8d4;border-color:rgba(255,77,148,.15);}
+.cat-auto .stag{background:rgba(20,184,166,.06);color:#5eead4;border-color:rgba(20,184,166,.15);}
+.cat-deploy .stag{background:rgba(245,158,11,.06);color:#fcd34d;border-color:rgba(245,158,11,.15);}
+
+/* ══════════════════════════════════
+   WORK AREAS
+══════════════════════════════════ */
+#workareas{background:linear-gradient(135deg,#3b1a8a,#1e0a5a);}
+.areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.area-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;padding:26px;transition:all .25s;
+  position:relative;overflow:hidden;cursor:none;
+}
+.area-glow{
+  position:absolute;inset:0;border-radius:16px;opacity:0;
+  transition:opacity .3s;pointer-events:none;
+}
+.area-card:hover .area-glow{opacity:1;}
+.area-card:hover{transform:translateY(-5px);background:rgba(255,255,255,.1);}
+.area-num{
+  font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;
+  color:rgba(255,255,255,.06);margin-bottom:14px;
+}
+.area-icon-wrap{
+  width:48px;height:48px;border-radius:12px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  margin-bottom:14px;
+}
+.area-title{font-size:16px;font-weight:900;color:#fff;margin-bottom:8px;}
+.area-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.65;margin-bottom:14px;}
+.area-chips{display:flex;flex-wrap:wrap;gap:4px;}
+.a-chip{
+  padding:3px 8px;border-radius:3px;font-size:10px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.15);
+}
+/* area themes */
+.area-1{} .area-1 .area-glow{background:radial-gradient(circle at 50% 0%,rgba(108,71,255,.12),transparent 70%);}
+.area-1 .area-icon-wrap{background:rgba(108,71,255,.1);border-color:rgba(108,71,255,.2);}
+.area-2 .area-glow{background:radial-gradient(circle at 50% 0%,rgba(0,229,255,.1),transparent 70%);}
+.area-2 .area-icon-wrap{background:rgba(0,229,255,.08);border-color:rgba(0,229,255,.2);}
+.area-3 .area-glow{background:radial-gradient(circle at 50% 0%,rgba(239,68,68,.1),transparent 70%);}
+.area-3 .area-icon-wrap{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);}
+.area-4 .area-glow{background:radial-gradient(circle at 50% 0%,rgba(184,255,87,.08),transparent 70%);}
+.area-4 .area-icon-wrap{background:rgba(184,255,87,.06);border-color:rgba(184,255,87,.2);}
+.area-5 .area-glow{background:radial-gradient(circle at 50% 0%,rgba(255,77,148,.1),transparent 70%);}
+.area-5 .area-icon-wrap{background:rgba(255,77,148,.08);border-color:rgba(255,77,148,.2);}
+.area-6 .area-glow{background:radial-gradient(circle at 50% 0%,rgba(255,179,71,.08),transparent 70%);}
+.area-6 .area-icon-wrap{background:rgba(255,179,71,.06);border-color:rgba(255,179,71,.2);}
+
+/* ══════════════════════════════════
+   PROJECTS
+══════════════════════════════════ */
+#projects{background:#fff;}
+.projects-list{display:flex;flex-direction:column;gap:16px;}
+.project-row{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:28px 32px;display:grid;grid-template-columns:60px 1fr auto;
+  gap:24px;align-items:center;transition:all .25s;position:relative;overflow:hidden;
+  cursor:none;box-shadow:0 2px 14px rgba(108,71,255,.06);
+}
+.project-row::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  border-radius:3px 0 0 3px;
+  background:linear-gradient(180deg,var(--glow),var(--glow2));
+  transform:scaleY(0);transform-origin:center;transition:transform .3s;
+}
+.project-row:hover::before{transform:scaleY(1);}
+.project-row:hover{border-color:rgba(108,71,255,.4);transform:translateX(4px);
+  box-shadow:-4px 0 0 rgba(108,71,255,.5),0 8px 40px rgba(108,71,255,.1);}
+.proj-num{
+  font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;
+  color:var(--glow);opacity:.35;
+}
+.proj-info{}
+.proj-name{font-size:18px;font-weight:900;color:#1a1040;margin-bottom:5px;}
+.proj-desc{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:10px;max-width:620px;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.proj-tag{
+  padding:3px 9px;border-radius:3px;font-size:10px;font-weight:800;
+  background:rgba(108,71,255,.08);color:#c4b5fd;border:1px solid rgba(108,71,255,.2);
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.proj-tag.new{background:rgba(184,255,87,.08);color:var(--lime);border-color:rgba(184,255,87,.2);}
+.proj-arrow{
+  width:42px;height:42px;border-radius:10px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--sub);font-size:18px;flex-shrink:0;transition:all .2s;
+}
+.project-row:hover .proj-arrow{border-color:var(--glow);color:var(--glow);background:rgba(108,71,255,.1);}
+.proj-feat-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:linear-gradient(90deg,var(--glow),var(--glow2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-left:8px;
+}
+
+/* ══════════════════════════════════
+   TOOLS
+══════════════════════════════════ */
+#tools{background:var(--bg);}
+.tools-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.tool-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:18px 14px;text-align:center;
+  transition:all .2s;position:relative;overflow:hidden;
+  box-shadow:0 2px 10px rgba(108,71,255,.05);
+}
+.tool-card::after{
+  content:'';position:absolute;inset:0;border-radius:12px;
+  background:linear-gradient(135deg,rgba(108,71,255,.08),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.tool-card:hover::after{opacity:1;}
+.tool-card:hover{border-color:rgba(108,71,255,.4);transform:translateY(-3px);
+  box-shadow:0 8px 32px rgba(108,71,255,.12);}
+.tool-emoji{font-size:26px;margin-bottom:8px;display:block;}
+.tool-name{font-size:12px;font-weight:800;color:#1a1040;margin-bottom:2px;}
+.tool-cat{font-size:10px;color:#8070a0;font-weight:600;letter-spacing:.05em;}
+.tool-new{
+  position:absolute;top:8px;right:8px;
+  font-size:8px;font-weight:900;background:var(--lime);color:#000;
+  padding:1px 5px;border-radius:2px;letter-spacing:.06em;
+}
+
+/* ══════════════════════════════════
+   EXPERIENCE
+══════════════════════════════════ */
+#experience{background:linear-gradient(135deg,#3d1f9e,#6c47ff);}
+.exp-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:36px;position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(108,71,255,.08);
+}
+.exp-card::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--glow),var(--glow2),var(--cyan));
+}
+.exp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px;}
+.exp-role{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.04em;color:#fff;}
+.exp-co{font-size:13px;font-weight:700;color:var(--glow);margin-top:4px;
+        font-family:'JetBrains Mono',monospace;}
+.exp-badge{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  padding:6px 14px;border:1px solid rgba(255,255,255,.3);border-radius:4px;
+  color:#fff;background:rgba(255,255,255,.1);white-space:nowrap;flex-shrink:0;
+}
+.exp-items{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.exp-item{
+  display:flex;gap:10px;padding:10px 12px;border-radius:8px;
+  background:var(--ink);border:1px solid var(--border);
+  font-size:13px;color:var(--sub);line-height:1.5;transition:all .15s;
+}
+.exp-item:hover{background:rgba(108,71,255,.08);border-color:rgba(108,71,255,.3);color:var(--text);}
+.exp-dot{color:var(--glow);flex-shrink:0;margin-top:2px;font-size:10px;}
+
+/* ══════════════════════════════════
+   EDUCATION
+══════════════════════════════════ */
+#education{background:linear-gradient(135deg,#3b1a8a,#1e0a5a);}
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.edu-card{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:22px;transition:all .2s;
+}
+.edu-card:hover{border-color:rgba(255,255,255,.3);}
+.edu-deg{font-size:14px;font-weight:900;color:#fff;margin-bottom:5px;}
+.edu-school{font-size:12px;color:var(--glow);font-weight:700;
+            font-family:'JetBrains Mono',monospace;margin-bottom:8px;}
+.edu-period{font-size:11px;color:rgba(255,255,255,.5);}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cert-card{
+  display:flex;align-items:center;gap:14px;padding:16px 20px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:12px;
+  transition:all .2s;
+}
+.cert-card:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1);}
+.cert-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  background:rgba(255,255,255,.12);flex-shrink:0;
+}
+.cert-name{font-size:13px;font-weight:900;color:#fff;}
+.cert-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;}
+
+/* ══════════════════════════════════
+   CONTACT
+══════════════════════════════════ */
+#contact{background:#fff;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.contact-left h3{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:.04em;
+  color:#1a1040;line-height:1;margin-bottom:14px;
+}
+.contact-left p{font-size:15px;color:#5a4a80;line-height:1.7;margin-bottom:28px;max-width:400px;}
+.contact-links{display:flex;flex-direction:column;gap:10px;}
+.c-link{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  text-decoration:none;transition:all .2s;box-shadow:0 2px 10px rgba(108,71,255,.06);
+}
+.c-link:hover{border-color:rgba(108,71,255,.4);transform:translateX(5px);
+  box-shadow:5px 0 0 rgba(108,71,255,.4);}
+.c-link-ico{
+  width:40px;height:40px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;
+  background:rgba(108,71,255,.1);
+}
+.c-link-label{font-size:10px;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.1em;}
+.c-link-val{font-size:13px;font-weight:700;color:#1a1040;}
+.avail-card{
+  background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:26px;
+  position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(108,71,255,.06);
+}
+.avail-card::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--lime),var(--cyan));
+}
+.avail-title{font-size:14px;font-weight:900;color:#1a1040;margin-bottom:16px;}
+.avail-row{
+  display:flex;align-items:center;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--border);font-size:13px;color:#5a4a80;
+}
+.avail-row:last-child{border:none;}
+.avail-arrow{color:var(--glow);font-size:12px;flex-shrink:0;}
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
+footer{
+  padding:32px 48px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);
+  background:var(--card);
+}
+footer a{color:var(--glow);text-decoration:none;}
+
+/* ══════════════════════════════════
+   REVEAL ON SCROLL
+══════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════
+   MOBILE
+══════════════════════════════════ */
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero-inner{grid-template-columns:1fr;padding:0 20px;}
+  .hero-card{display:none;}
+  .container{padding:0 20px;}
+  .skills-grid,.areas-grid,.tools-grid{grid-template-columns:1fr 1fr;}
+  .exp-items,.edu-grid,.cert-grid,.contact-grid{grid-template-columns:1fr;}
+  .project-row{grid-template-columns:40px 1fr;gap:14px;}
+  .proj-arrow{display:none;}
+  h2.sec-title{font-size:40px;}
+  .hero-name{font-size:58px;}
+  footer{flex-direction:column;gap:8px;text-align:center;}
 }
 </style>
 </head>
 <body>
 
-<div class="g1"></div>
-<div class="g2"></div>
-<div id="particles"></div>
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav>
-  <div class="ni">
-    <a href="#hero" class="nb">vignesh<em>.s()</em></a>
-    <ul class="nl">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#workareas">Work Areas</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#tools">Tools</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-orb">VS</div>
+    VIGNESH.S
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#workareas">Areas</a>
+    <a href="#projects">Projects</a>
+    <a href="#tools">Tools</a>
+    <a href="#experience">Exp</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-status">
+    <span class="nav-status-dot"></span>
+    OPEN TO WORK
   </div>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="sec" id="hero" style="border:none">
-  <div class="wrap">
-    <div class="hl">
-      <div>
-        <div class="eyebrow">Open to Opportunities</div>
-        <h1 class="hn">Vignesh<br><span class="ac">S.</span></h1>
-        <p class="hr"><strong>System Engineer</strong> &nbsp;/&nbsp; IT Support Engineer &nbsp;·&nbsp; Panruti, Tamil Nadu</p>
-        <p class="hb">I build, secure, and automate IT infrastructure. From endpoint security and cloud administration to PowerShell automation and monitoring systems — keeping everything running clean, fast, and safe.</p>
-        <div class="hcta">
-          <a href="mailto:vigneshsigamani3303@gmail.com" class="btn bb">✉ Get in Touch</a>
-          <a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank" class="btn bg">LinkedIn ↗</a>
-        </div>
-        <div class="hs">
-          <div class="sb"><div class="sn">1+</div><div class="sl">Yrs Exp</div></div>
-          <div class="sb"><div class="sn">12</div><div class="sl">Skills</div></div>
-          <div class="sb"><div class="sn">3</div><div class="sl">Projects</div></div>
-          <div class="sb"><div class="sn">7.8</div><div class="sl">CGPA</div></div>
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-mesh"></div>
+  <div class="scan-line"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="code-tag">&lt; SYSTEM_ENGINEER · DEVELOPER /&gt;</div>
+      <h1 class="hero-name">
+        <span class="hero-name-line1">VIGNESH</span>
+        <span class="hero-name-line2">SIGAMANI</span>
+      </h1>
+      <div class="hero-pills">
+        <span class="hero-pill pill-v">IT Engineering</span>
+        <span class="hero-pill pill-d">Full-Stack Dev</span>
+        <span class="hero-pill pill-l">📍 Tamil Nadu, India</span>
+      </div>
+      <p class="hero-desc">
+        I <b>build, secure, and automate</b> IT infrastructure — and ship full-stack web applications. From endpoint security and cloud administration to <b>Node.js backends, MongoDB,</b> and <b>AI-powered tools</b>.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:vigneshsigamani3303@gmail.com" class="btn-glow">
+          ✉ Get in Touch
+        </a>
+        <a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank" class="btn-outline">
+          LinkedIn ↗
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-corner">SYS_ENG.EXE</div>
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar">VS</div>
+        <div class="avatar-ring-outer"></div>
+      </div>
+      <div class="hero-card-name">Vignesh S</div>
+      <div class="hero-card-sub">// system_engineer.exe</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">2+</div><div class="stat-lbl">Yrs Exp</div></div>
+        <div class="stat-box"><div class="stat-num">18+</div><div class="stat-lbl">Skills</div></div>
+        <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Projects</div></div>
+        <div class="stat-box"><div class="stat-num">7.8</div><div class="stat-lbl">CGPA</div></div>
+      </div>
+      <div class="card-links">
+        vigneshsigamani3303@gmail.com
+        <a href="tel:+919360378863" class="card-link"><span class="card-link-dot"></span>+91 93603 78863</a>
+        <span class="card-link"><span class="card-link-dot"></span>Panruti, Cuddalore – 607103</span>
+        <span class="card-link"><span class="card-link-dot"></span>B.Tech IT · Mahendra Engg College</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item"><b>NODE.JS</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>MONGODB</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">OFFICE 365<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>JWT AUTH</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">BITDEFENDER<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>POSTFIX SMTP</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>LAUNCHD</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">POWERSHELL<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>UIPATH RPA</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">FIREBASE<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>PYTHON FLASK</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">TERAMIND<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>NODE.JS</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>MONGODB</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">OFFICE 365<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>JWT AUTH</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">BITDEFENDER<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>POSTFIX SMTP</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>LAUNCHD</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">POWERSHELL<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>UIPATH RPA</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">FIREBASE<span class="marquee-sep">✦</span></span>
+    <span class="marquee-item"><b>PYTHON FLASK</b><span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">TERAMIND<span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container">
+    <div class="sec-label">About Me</div>
+    <h2 class="sec-title">WHO I <span>AM</span></h2>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="about-num">01</div>
+        <div class="about-icon-box">🖥️</div>
+        <h3>System Setup &amp; Configuration</h3>
+        <p>End-to-end Windows OS installations, system configuration, desktop and laptop support — ensuring every machine is optimized and stable.</p>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-num">02</div>
+        <div class="about-icon-box">🌐</div>
+        <h3>Network Troubleshooting</h3>
+        <p>From diagnosing connectivity issues to configuring VPN remote access, maintaining reliable network infrastructure and resolving outages fast.</p>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-num">03</div>
+        <div class="about-icon-box">🔐</div>
+        <h3>Security Implementations</h3>
+        <p>Deploy Bitdefender endpoint protection, create Teramind monitoring policies, and analyze spam and phishing threats from all angles.</p>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-num">04</div>
+        <div class="about-icon-box">⚡</div>
+        <h3>Full-Stack Development</h3>
+        <p>Build complete web applications with Node.js + Express backend, MongoDB database, JWT authentication, and polished HTML/CSS/JS frontends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="container">
+    <div class="sec-label">Technical Skills</div>
+    <h2 class="sec-title">WHAT I <span>KNOW</span></h2>
+    <div class="skills-grid">
+      <div class="skill-cat cat-sys reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">System &amp; Network</div><div class="skill-count">5</div></div>
+        <div class="skill-tags">
+          <span class="stag">Windows OS</span><span class="stag">System Troubleshooting</span>
+          <span class="stag">Desktop &amp; Laptop Support</span><span class="stag">Network Support</span>
+          <span class="stag">VPN Setup</span>
         </div>
       </div>
-      <div>
-        <div class="idc">
-          <div class="idav">VS</div>
-          <div class="idn">Vignesh S</div>
-          <div class="idt">// system_engineer.exe</div>
-          <div class="idr">
-            <div class="idrow"><span class="idico">📧</span><span class="idinf"><a href="mailto:vigneshsigamani3303@gmail.com">vigneshsigamani3303@gmail.com</a></span></div>
-            <div class="idrow"><span class="idico">📱</span><span class="idinf">+91 93603 78863</span></div>
-            <div class="idrow"><span class="idico">📍</span><span class="idinf">Panruti, Cuddalore – 607103</span></div>
-            <div class="idrow"><span class="idico">🎓</span><span class="idinf">B.Tech IT · Mahendra Engineering College</span></div>
-            <div class="idrow"><span class="idico">🔗</span><span class="idinf"><a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank">LinkedIn Profile ↗</a></span></div>
-          </div>
-          <div class="iddiv"></div>
-          <div class="idbadge">Available for Work</div>
+      <div class="skill-cat cat-cloud reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Cloud &amp; Productivity</div><div class="skill-count">5</div></div>
+        <div class="skill-tags">
+          <span class="stag">Microsoft Azure</span><span class="stag">Office 365 Admin</span>
+          <span class="stag">Google Workspace</span><span class="stag">SharePoint</span>
+          <span class="stag">OneDrive &amp; Teams</span>
+        </div>
+      </div>
+      <div class="skill-cat cat-sec reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Security &amp; Monitoring</div><div class="skill-count">4</div></div>
+        <div class="skill-tags">
+          <span class="stag">Bitdefender</span><span class="stag">Teramind</span>
+          <span class="stag">Phishing Analysis</span><span class="stag">Alert &amp; Reports</span>
+        </div>
+      </div>
+      <div class="skill-cat cat-be reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Backend Dev</div><div class="skill-count">5</div></div>
+        <div class="skill-tags">
+          <span class="stag">Node.js</span><span class="stag">Express.js</span>
+          <span class="stag">REST API Design</span><span class="stag">JWT Auth</span>
+          <span class="stag">bcrypt</span>
+          
+        </div>
+      </div>
+      <div class="skill-cat cat-fe reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Frontend Dev</div><div class="skill-count">7</div></div>
+        <div class="skill-tags">
+          <span class="stag">HTML5</span><span class="stag">CSS3</span>
+          <span class="stag">JavaScript ES6+</span><span class="stag">Responsive Design</span>
+          <span class="stag">DOM Manipulation</span><span class="stag">IIFE Architecture</span>
+          <span class="stag">Java</span>
+        </div>
+      </div>
+      <div class="skill-cat cat-db reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Database</div><div class="skill-count">5</div></div>
+        <div class="skill-tags">
+          <span class="stag">MongoDB</span><span class="stag">Mongoose ODM</span>
+          <span class="stag">Firebase Realtime DB</span><span class="stag">Firestore</span>
+          <span class="stag">REST API Integration</span>
+        </div>
+      </div>
+      <div class="skill-cat cat-ai reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">AI &amp; API</div><div class="skill-count">5</div></div>
+        <div class="skill-tags">
+          <span class="stag">Anthropic Claude API</span><span class="stag">OpenAI API</span>
+          <span class="stag">Telegram Bot Dev</span><span class="stag">AI Grammar Check</span>
+          <span class="stag">Spam Detection AI</span>
+        </div>
+      </div>
+      <div class="skill-cat cat-auto reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Automation</div><div class="skill-count">9</div></div>
+        <div class="skill-tags">
+          <span class="stag">PowerShell</span><span class="stag">UiPath RPA</span>
+          <span class="stag">Twilio Config</span><span class="stag">Dialpad VoIP</span>
+          <span class="stag">CSV Export</span><span class="stag">Cron Jobs</span>
+          <span class="stag">launchd</span><span class="stag">Postfix</span><span class="stag">SMTP Config</span>
+        </div>
+      </div>
+      <div class="skill-cat cat-deploy reveal">
+        <div class="skill-cat-top"><div class="skill-cat-name">Deployment</div><div class="skill-count">6</div></div>
+        <div class="skill-tags">
+          <span class="stag">Git &amp; GitHub</span><span class="stag">Render</span>
+          <span class="stag">Railway</span><span class="stag">Postman</span>
+          <span class="stag">Firebase Hosting</span><span class="stag">GitHub Pages</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="sdiv"></div>
-
-<!-- ── ABOUT ── -->
-<section class="sec" id="about">
-  <div class="wrap">
-    <div class="lbl slide-left">About Me</div>
-    <h2 class="st slide-left">Who I <span>Am</span></h2>
-    <div class="ag">
-      <div class="ac slide-up" style="transition-delay:.0s">
-        <div class="aci">🖥️</div>
-        <div class="act">System Setup &amp; Configuration</div>
-        <p class="acp">End-to-end Windows OS installations, system configuration, desktop and laptop support — ensuring every machine is optimized and stable.</p>
+<!-- ══ WORK AREAS ══ -->
+<section id="workareas" style="--sec-label-color:#c4b5fd;">
+  <div class="container">
+    <div class="sec-label">What I Can Do</div>
+    <h2 class="sec-title">AREAS I <span>WORK IN</span></h2>
+    <div class="areas-grid">
+      <div class="area-card area-1 reveal">
+        <div class="area-glow"></div>
+        <div class="area-num">01</div>
+        <div class="area-icon-wrap">🌐</div>
+        <div class="area-title">Full-Stack Web Dev</div>
+        <p class="area-desc">Complete web applications — Node.js/Express backend, MongoDB, JWT, clean frontend. From IT dashboards to ticketing systems.</p>
+        <div class="area-chips"><span class="a-chip">Node.js</span><span class="a-chip">MongoDB</span><span class="a-chip">JWT</span><span class="a-chip">Firebase</span></div>
       </div>
-      <div class="ac slide-up" style="transition-delay:.1s">
-        <div class="aci">🌐</div>
-        <div class="act">Network Troubleshooting</div>
-        <p class="acp">From diagnosing connectivity issues to configuring VPN remote access, maintaining reliable network infrastructure and resolving outages fast.</p>
+      <div class="area-card area-2 reveal">
+        <div class="area-glow"></div>
+        <div class="area-num">02</div>
+        <div class="area-icon-wrap">🖥️</div>
+        <div class="area-title">IT Support &amp; Sysadmin</div>
+        <p class="area-desc">End-to-end IT support — Windows setup, Office 365, Google Workspace, VPN configuration, hardware troubleshooting.</p>
+        <div class="area-chips"><span class="a-chip">O365</span><span class="a-chip">G Suite</span><span class="a-chip">VPN</span><span class="a-chip">Windows</span></div>
       </div>
-      <div class="ac slide-up" style="transition-delay:.2s">
-        <div class="aci">🔐</div>
-        <div class="act">Security Implementations</div>
-        <p class="acp">Deploy Bitdefender endpoint protection, create Teramind monitoring policies, and analyze spam and phishing threats — protecting from all angles.</p>
+      <div class="area-card area-3 reveal">
+        <div class="area-glow"></div>
+        <div class="area-num">03</div>
+        <div class="area-icon-wrap">🔐</div>
+        <div class="area-title">Security &amp; Monitoring</div>
+        <p class="area-desc">Endpoint protection, activity monitoring policies, phishing analysis, compliance reports — keeping organisations safe.</p>
+        <div class="area-chips"><span class="a-chip">Bitdefender</span><span class="a-chip">Teramind</span><span class="a-chip">Azure</span></div>
       </div>
-      <div class="ac slide-up" style="transition-delay:.3s">
-        <div class="aci">⚙️</div>
-        <div class="act">Automation Scripts</div>
-        <p class="acp">PowerShell scripts to automate repetitive IT workflows — from bulk user provisioning to call recording downloads — saving hours every week.</p>
+      <div class="area-card area-4 reveal">
+        <div class="area-glow"></div>
+        <div class="area-num">04</div>
+        <div class="area-icon-wrap">⚙️</div>
+        <div class="area-title">Automation &amp; Scripting</div>
+        <p class="area-desc">PowerShell scripts, RPA processes with UiPath, shell scripting and launchd daemons — reducing manual effort and improving consistency.</p>
+        <div class="area-chips"><span class="a-chip">PowerShell</span><span class="a-chip">UiPath</span><span class="a-chip">launchd</span></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<div class="sdiv"></div>
-
-<!-- ── SKILLS ── -->
-<section class="sec" id="skills">
-  <div class="wrap">
-    <div class="lbl slide-right">Technical Skills</div>
-    <h2 class="st slide-right">What I <span>Know</span></h2>
-    <div class="skl">
-      <div class="sg slide-left" style="transition-delay:.0s">
-        <div class="sgt">System &amp; Network</div>
-        <div class="stags">
-          <span class="stag"><span class="dot db"></span>Windows OS Installation</span>
-          <span class="stag"><span class="dot db"></span>System Troubleshooting</span>
-          <span class="stag"><span class="dot db"></span>Desktop &amp; Laptop Support</span>
-          <span class="stag"><span class="dot db"></span>Network Support</span>
-          <span class="stag"><span class="dot db"></span>VPN Setup &amp; Remote Access</span>
+      <div class="area-card area-5 reveal">
+        <div class="area-glow"></div>
+        <div class="area-num">05</div>
+        <div class="area-icon-wrap">🤖</div>
+        <div class="area-title">AI Integration &amp; Bots</div>
+        <p class="area-desc">AI-powered apps using Claude and OpenAI APIs. Intelligent tools that solve real business and IT problems.</p>
+        <div class="area-chips"><span class="a-chip">Claude API</span><span class="a-chip">OpenAI</span><span class="a-chip">Telegram</span></div>
+      </div>
+      <div class="area-card area-6 reveal">
+        <div class="area-glow"></div>
+        <div class="area-num">06</div>
+        <div class="area-icon-wrap">📊</div>
+        <div class="area-title">Reports &amp; Dashboards</div>
+        <p class="area-desc">Data dashboards, CSV reports, Google Sheets automations with VLOOKUP, IT metrics visualisation for management.</p>
+        <div class="area-chips"><span class="a-chip">Sheets</span><span class="a-chip">CSV</span><span class="a-chip">Dashboard</span></div>
+      </div>
         </div>
+        <div class="proj-arrow">↗</div>
       </div>
-      <div class="sg slide-right" style="transition-delay:.1s">
-        <div class="sgt">Cloud &amp; Productivity</div>
-        <div class="stags">
-          <span class="stag"><span class="dot dg"></span>Microsoft Azure – Fundamentals</span>
-          <span class="stag"><span class="dot dg"></span>Office 365 Administration</span>
-          <span class="stag"><span class="dot dg"></span>Google Workspace (G Suite)</span>
         </div>
+        <div class="proj-arrow">↗</div>
       </div>
-      <div class="sg slide-left" style="transition-delay:.2s">
-        <div class="sgt">Security &amp; Monitoring</div>
-        <div class="stags">
-          <span class="stag"><span class="dot dr"></span>Bitdefender Endpoint Security</span>
-          <span class="stag"><span class="dot dr"></span>Teramind – Rules &amp; Policies</span>
-          <span class="stag"><span class="dot dr"></span>Spam &amp; Phishing Analysis</span>
-          <span class="stag"><span class="dot dr"></span>Alert &amp; Report Generation</span>
         </div>
+        <div class="proj-arrow">↗</div>
       </div>
-      <div class="sg slide-right" style="transition-delay:.3s">
-        <div class="sgt">Automation &amp; Communication</div>
-        <div class="stags">
-          <span class="stag"><span class="dot dy"></span>PowerShell Scripting</span>
-          <span class="stag"><span class="dot dy"></span>Twilio Configuration</span>
-          <span class="stag"><span class="dot dy"></span>Dialpad VoIP Support</span>
-          <span class="stag"><span class="dot dy"></span>Firebase Realtime DB</span>
-          <span class="stag"><span class="dot dy"></span>CSV Export &amp; Reporting</span>
         </div>
+        <div class="proj-arrow">↗</div>
       </div>
-      <div class="sg slide-left" style="transition-delay:.4s;grid-column:1/-1">
-        <div class="sgt">Application Development</div>
-        <div class="stags">
-          <span class="stag"><span class="dot db"></span>HTML</span>
-          <span class="stag"><span class="dot db"></span>CSS</span>
-          <span class="stag"><span class="dot db"></span>JavaScript</span>
-          <span class="stag"><span class="dot dg"></span>Firebase</span>
-          <span class="stag"><span class="dot dr"></span>Java</span>
-          <span class="stag"><span class="dot dg"></span>Web App Development</span>
-          <span class="stag"><span class="dot db"></span>Responsive Design</span>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="sdiv"></div>
-
-<!-- ── WORK AREAS ── -->
-<section class="sec" id="workareas">
-  <div class="wrap">
-    <div class="lbl slide-right">What I Can Do</div>
-    <h2 class="st slide-right">Areas I <span>Work In</span></h2>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
-
-      <div class="ac slide-left" style="transition-delay:.0s;border-left:3px solid var(--accent)">
-        <div class="aci">🌐</div>
-        <div class="act">Web App Development</div>
-        <p class="acp">Build functional, responsive web applications using HTML, CSS, JavaScript, and Firebase. From dashboards and admin panels to full internal IT tools like TechTrack.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
-          <span style="font-size:.68rem;background:var(--aglow);border:1px solid rgba(59,130,246,.25);color:var(--accent);padding:3px 9px;border-radius:4px;font-weight:600">HTML/CSS/JS</span>
-          <span style="font-size:.68rem;background:var(--aglow);border:1px solid rgba(59,130,246,.25);color:var(--accent);padding:3px 9px;border-radius:4px;font-weight:600">Firebase</span>
-          <span style="font-size:.68rem;background:var(--aglow);border:1px solid rgba(59,130,246,.25);color:var(--accent);padding:3px 9px;border-radius:4px;font-weight:600">Java</span>
-        </div>
-      </div>
-
-      <div class="ac slide-right" style="transition-delay:.1s;border-left:3px solid var(--green)">
-        <div class="aci">🖥️</div>
-        <div class="act">IT Support &amp; Sysadmin</div>
-        <p class="acp">End-to-end IT support including Windows setup, Office 365 &amp; Google Workspace administration, VPN configuration, and hardware troubleshooting across enterprise environments.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
-          <span style="font-size:.68rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--green);padding:3px 9px;border-radius:4px;font-weight:600">Office 365</span>
-          <span style="font-size:.68rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--green);padding:3px 9px;border-radius:4px;font-weight:600">Google Workspace</span>
-          <span style="font-size:.68rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--green);padding:3px 9px;border-radius:4px;font-weight:600">Windows OS</span>
-          <span style="font-size:.68rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--green);padding:3px 9px;border-radius:4px;font-weight:600">VPN</span>
-        </div>
-      </div>
-
-      <div class="ac slide-left" style="transition-delay:.2s;border-left:3px solid var(--red)">
-        <div class="aci">🔐</div>
-        <div class="act">Security &amp; Monitoring</div>
-        <p class="acp">Implement endpoint protection, configure activity monitoring policies, analyze phishing &amp; spam threats, and generate compliance reports to keep organizations safe and auditable.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
-          <span style="font-size:.68rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red);padding:3px 9px;border-radius:4px;font-weight:600">Bitdefender</span>
-          <span style="font-size:.68rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red);padding:3px 9px;border-radius:4px;font-weight:600">Teramind</span>
-          <span style="font-size:.68rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red);padding:3px 9px;border-radius:4px;font-weight:600">Phishing Analysis</span>
-          <span style="font-size:.68rem;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red);padding:3px 9px;border-radius:4px;font-weight:600">Azure</span>
-        </div>
-      </div>
-
-      <div class="ac slide-right" style="transition-delay:.3s;border-left:3px solid var(--yellow)">
-        <div class="aci">⚙️</div>
-        <div class="act">Automation &amp; Scripting</div>
-        <p class="acp">Write PowerShell scripts to automate IT workflows, scheduled tasks, data processing, and reporting — reducing manual effort and improving consistency across operations.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
-          <span style="font-size:.68rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:var(--yellow);padding:3px 9px;border-radius:4px;font-weight:600">PowerShell</span>
-          <span style="font-size:.68rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:var(--yellow);padding:3px 9px;border-radius:4px;font-weight:600">UiPath RPA</span>
-          <span style="font-size:.68rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:var(--yellow);padding:3px 9px;border-radius:4px;font-weight:600">Task Scheduling</span>
-        </div>
+        <div class="proj-arrow">↗</div>
       </div>
 
     </div>
   </div>
 </section>
 
-<div class="sdiv"></div>
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="container">
+    <div class="sec-label">Projects</div>
+    <h2 class="sec-title">REAL <span>WORK</span></h2>
+    <div class="projects-list">
 
-<!-- ── PROJECTS (WATERFALL) ── -->
-<section class="sec" id="projects">
-  <div class="wrap">
-    <div class="lbl slide-left">Projects</div>
-    <h2 class="st slide-left">Real <span>Work</span></h2>
-
-    <div class="waterfall">
-
-      <!-- Card 1 — tall -->
-      <div class="wf-item">
-        <div class="wf-num">01 / PROJECT</div>
-        <div class="wf-ico">📡</div>
-        <div class="wf-title">Network Alert Monitoring System</div>
-        <p class="wf-desc">Designed and deployed a real-time monitoring alert system to detect network and system anomalies across IT infrastructure.<br><br>The system proactively identifies outages, performance degradation, and unusual traffic patterns — triggering alerts before they impact users. Significantly reduced downtime and improved mean time to resolution (MTTR) for the team.</p>
-        <div class="wf-tags">
-          <span class="wf-tag">Network Monitoring</span>
-          <span class="wf-tag">Alerting</span>
-          <span class="wf-tag">Incident Response</span>
-          <span class="wf-tag">Uptime</span>
-          <span class="wf-tag">IT Ops</span>
-        </div>
-      </div>
-
-      <!-- Card 2 — medium -->
-      <div class="wf-item">
-        <div class="wf-num">02 / PROJECT</div>
-        <div class="wf-ico">⚡</div>
-        <div class="wf-title">Dialpad Auto Call Downloader</div>
-        <p class="wf-desc">Built a PowerShell automation script that downloads Dialpad call recordings on a schedule using cookie-based authentication. Eliminated all manual downloads and saved several hours of repetitive work every week.</p>
-        <div class="wf-tags">
-          <span class="wf-tag">PowerShell</span>
-          <span class="wf-tag">Automation</span>
-          <span class="wf-tag">Dialpad</span>
-          <span class="wf-tag">Cookie Auth</span>
-          <span class="wf-tag">Scheduling</span>
-        </div>
-      </div>
-
-      <!-- Card 3 — featured tall -->
-      <div class="wf-item wf-featured">
-        <div class="wf-badge">Featured Project</div>
-        <div class="wf-num" style="color:var(--green)">03 / FEATURED</div>
-        <div class="wf-ico">🖥️</div>
-        <div class="wf-title">TechTrack — IT Management System</div>
-        <p class="wf-desc">A full-stack internal IT management web application built with Firebase Realtime Database.<br><br>
-          <strong style="color:var(--text);font-size:.78rem">Modules include:</strong><br><br>
-          <strong style="color:var(--green);font-size:.75rem">🗂 Asset Sheet</strong> <span style="font-size:.75rem">— Track laptops, peripherals, backup and dead assets with full service records.</span><br><br>
-          <strong style="color:var(--green);font-size:.75rem">⚡ System Performance</strong> <span style="font-size:.75rem">— Monthly user check-ins with system, team, and app scores plus physical damage reporting.</span><br><br>
-          <strong style="color:var(--green);font-size:.75rem">📈 Performance Dashboard</strong> <span style="font-size:.75rem">— Aggregated metrics across all users, auto-updated, with CSV export for every log.</span><br><br>
-          <strong style="color:var(--green);font-size:.75rem">🔐 User Management</strong> <span style="font-size:.75rem">— Admin-only panel to create and manage login credentials with role-based access control.</span>
-        </p>
-        <div class="wf-tags">
-          <span class="wf-tag green">Firebase</span>
-          <span class="wf-tag green">HTML/CSS/JS</span>
-          <span class="wf-tag green">Asset Tracking</span>
-          <span class="wf-tag green">Dashboard</span>
-          <span class="wf-tag green">CSV Export</span>
-          <span class="wf-tag green">RBAC</span>
-          <span class="wf-tag green">Real-time Sync</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="sdiv"></div>
-
-<!-- ── TOOLS ── -->
-<section class="sec" id="tools">
-  <div class="wrap">
-    <div class="lbl slide-right">Tools I Use</div>
-    <h2 class="st slide-right">My <span>Toolkit</span></h2>
-    <div class="tg">
-      <div class="tc rv" style="transition-delay:.00s"><div class="tico">🪟</div><div class="tn">Windows OS</div><div class="tcat">System</div></div>
-      <div class="tc rv" style="transition-delay:.05s"><div class="tico">📧</div><div class="tn">Office 365</div><div class="tcat">Productivity</div></div>
-      <div class="tc rv" style="transition-delay:.10s"><div class="tico">☁️</div><div class="tn">Microsoft Azure</div><div class="tcat">Cloud</div></div>
-      <div class="tc rv" style="transition-delay:.15s"><div class="tico">🟢</div><div class="tn">Google Workspace</div><div class="tcat">Productivity</div></div>
-      <div class="tc rv" style="transition-delay:.20s"><div class="tico">🔒</div><div class="tn">Bitdefender</div><div class="tcat">Security</div></div>
-      <div class="tc rv" style="transition-delay:.25s"><div class="tico">👁</div><div class="tn">Teramind</div><div class="tcat">Monitoring</div></div>
-      <div class="tc rv" style="transition-delay:.30s"><div class="tico">💻</div><div class="tn">PowerShell</div><div class="tcat">Automation</div></div>
-      <div class="tc rv" style="transition-delay:.35s"><div class="tico">📞</div><div class="tn">Twilio</div><div class="tcat">Communication</div></div>
-      <div class="tc rv" style="transition-delay:.40s"><div class="tico">📲</div><div class="tn">Dialpad</div><div class="tcat">VoIP</div></div>
-      <div class="tc rv" style="transition-delay:.45s"><div class="tico">🔥</div><div class="tn">Firebase</div><div class="tcat">Database</div></div>
-      <div class="tc rv" style="transition-delay:.50s"><div class="tico">🌐</div><div class="tn">VPN Tools</div><div class="tcat">Networking</div></div>
-      <div class="tc rv" style="transition-delay:.55s"><div class="tico">🤖</div><div class="tn">UiPath</div><div class="tcat">RPA</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="sdiv"></div>
-
-<!-- ── EXPERIENCE ── -->
-<section class="sec" id="experience">
-  <div class="wrap">
-    <div class="lbl slide-left">Work Experience</div>
-    <h2 class="st slide-left">What I've <span>Done</span></h2>
-    <div class="etl">
-      <div class="ee slide-up">
-        <div class="ecard">
-          <div class="etop">
-            <div class="etit">System Engineer / IT Support Engineer</div>
-            <div class="ebadge">2024 – Present</div>
-          </div>
-          <div class="esub">Full-time · IT Infrastructure &amp; Support · Tamil Nadu, India</div>
-          <ul class="eitems">
-            <li>Provided end-to-end technical support for desktops, laptops, and enterprise applications across the organization.</li>
-            <li>Managed Office 365 and Google Workspace — user provisioning, mailbox management, license assignments, and policies.</li>
-            <li>Designed and implemented Teramind monitoring rules, security policies, and alert thresholds for compliance and activity tracking.</li>
-            <li>Configured and maintained VPN access for remote employees, ensuring secure and reliable connectivity.</li>
-            <li>Deployed and managed Bitdefender endpoint security — policies, scanning schedules, and threat responses across all devices.</li>
-            <li>Handled Twilio configuration, call routing setups, and issue resolution for voice communication pipelines.</li>
-            <li>Developed PowerShell automation scripts to eliminate repetitive IT tasks and reduce manual workload.</li>
-            <li>Conducted spam and phishing email analysis; trained the team on identifying and reporting threats.</li>
-            <li>Supported Dialpad VoIP operations — call flow management, user setup, and troubleshooting.</li>
-            <li>Built TechTrack — an internal IT management system using Firebase for asset tracking, performance monitoring, and dashboards.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="sdiv"></div>
-
-<!-- ── EDUCATION ── -->
-<section class="sec" id="education">
-  <div class="wrap">
-    <div class="lbl slide-right">Background</div>
-    <h2 class="st slide-right">Education &amp; <span>Certifications</span></h2>
-    <div class="ecg">
-      <div class="edl">
-        <div class="edi slide-left" style="transition-delay:.0s">
-          <div class="edd"></div>
-          <div>
-            <div class="edeg">B.Tech – Information Technology</div>
-            <div class="esc">Mahendra Engineering College, Namakkal</div>
-            <div class="emeta"><span class="echip yr">2020 – 2024</span><span class="echip">CGPA: 7.80</span></div>
+      <div class="project-row reveal">
+        <div class="proj-num">01</div>
+        <div class="proj-info">
+          <div class="proj-name">📡 Network Alert Monitoring System</div>
+          <p class="proj-desc">Real-time monitoring alert system detecting network and system anomalies across IT infrastructure. Proactively identifies outages and performance degradation — triggering alerts before they impact users. Reduced downtime and improved MTTR significantly.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Network Monitoring</span>
+            <span class="proj-tag">Alerting</span>
+            <span class="proj-tag">Incident Response</span>
+            <span class="proj-tag">IT Ops</span>
           </div>
         </div>
-        <div class="edi slide-left" style="transition-delay:.1s">
-          <div class="edd" style="background:var(--green)"></div>
-          <div>
-            <div class="edeg">HSC – Higher Secondary Certificate</div>
-            <div class="esc">NLC Higher Secondary School, Neyveli</div>
-            <div class="emeta"><span class="echip yr">2019 – 2020</span></div>
-          </div>
-        </div>
-        <div class="edi slide-left" style="transition-delay:.2s">
-          <div class="edd" style="background:var(--yellow)"></div>
-          <div>
-            <div class="edeg">SSLC – Secondary School Leaving Certificate</div>
-            <div class="esc">Government Higher Secondary School, Keezhakuppam</div>
-            <div class="emeta"><span class="echip yr">2017 – 2018</span><span class="echip">82.8%</span></div>
-          </div>
-        </div>
+        <div class="proj-arrow">↗</div>
       </div>
-      <div class="clist">
-        <div class="cit slide-right" style="transition-delay:.0s">
-          <div class="cico">🤖</div>
-          <div><div class="cn">UiPath – Diploma of Completion</div><div class="ct">Robotic Process Automation · Online</div></div>
+
+      <div class="project-row reveal">
+        <div class="proj-num">02</div>
+        <div class="proj-info">
+          <div class="proj-name">⚡ Dialpad Auto Call Downloader</div>
+          <p class="proj-desc">PowerShell automation script that downloads Dialpad call recordings on a schedule using cookie-based authentication. Eliminated all manual downloads and saved several hours of repetitive work every week.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">PowerShell</span>
+            <span class="proj-tag">Automation</span>
+            <span class="proj-tag">Dialpad</span>
+            <span class="proj-tag">Cookie Auth</span>
+            <span class="proj-tag">Scheduling</span>
+          </div>
         </div>
-        <div class="cit slide-right" style="transition-delay:.1s">
-          <div class="cico">☕</div>
-          <div><div class="cn">Java Programming Language</div><div class="ct">Professional Certification</div></div>
+        <div class="proj-arrow">↗</div>
+      </div>
+
+      <div class="project-row reveal">
+        <div class="proj-num">03</div>
+        <div class="proj-info">
+          <div class="proj-name">🖥️ TechTrack — IT Management System <span class="proj-feat-badge">★ FEATURED</span></div>
+          <p class="proj-desc">Full-stack internal IT management web app built with Firebase Realtime Database. Modules: Asset Sheet (laptops &amp; peripherals), System Performance (monthly check-ins), Performance Dashboard (metrics with CSV export), and User Management with role-based access control.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Firebase</span>
+            <span class="proj-tag">HTML/CSS/JS</span>
+            <span class="proj-tag">Asset Tracking</span>
+            <span class="proj-tag">Dashboard</span>
+            <span class="proj-tag">CSV Export</span>
+            <span class="proj-tag">RBAC</span>
+            <span class="proj-tag">Real-time Sync</span>
+          </div>
         </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+
+      <div class="project-row reveal">
+        <div class="proj-num">04</div>
+        <div class="proj-info">
+          <div class="proj-name">🎫 VananTickets — IT Support Portal <span class="proj-feat-badge">★ FEATURED</span></div>
+          <p class="proj-desc">Multi-role IT ticketing system with User, Engineer, and Admin portals. Node.js + MongoDB backend with JWT authentication, IIFE isolation, engineer assignment, complaint management, transfer between engineers, and AI grammar check on replies.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Node.js</span>
+            <span class="proj-tag">Express</span>
+            <span class="proj-tag">MongoDB</span>
+            <span class="proj-tag">JWT Auth</span>
+            <span class="proj-tag">HTML/CSS/JS</span>
+            <span class="proj-tag">RBAC</span>
+            <span class="proj-tag">Multi-Role</span>
+            <span class="proj-tag">REST API</span>
+          </div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+
+      <div class="project-row reveal">
+        <div class="proj-num">05</div>
+        <div class="proj-info">
+          <div class="proj-name">🔌 Mac USB Alert — Auto Email via Postfix + SMTP <span class="proj-feat-badge">★ FEATURED</span></div>
+          <p class="proj-desc">Real-time USB connection detection and automatic email alert system for macOS. Uses a launchd LaunchAgent to monitor USB device events on plug/unplug, triggers a shell script, and delivers instant email notifications through Postfix configured as a Gmail SMTP relay. Zero manual steps — device plugged in, IT gets emailed automatically.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">macOS</span>
+            <span class="proj-tag">launchd</span>
+            <span class="proj-tag">Postfix</span>
+            <span class="proj-tag">SMTP Relay</span>
+            <span class="proj-tag">Gmail SMTP</span>
+            <span class="proj-tag">Shell Script</span>
+            <span class="proj-tag">IT Security</span>
+            <span class="proj-tag">USB Monitoring</span>
+          </div>
+        </div>
+        <div class="proj-arrow">↗</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ TOOLS ══ -->
+<section id="tools">
+  <div class="container">
+    <div class="sec-label">Tools I Use</div>
+    <h2 class="sec-title">MY <span>TOOLKIT</span></h2>
+    <div class="tools-grid">
+      <div class="tool-card reveal"><span class="tool-emoji">🪟</span><div class="tool-name">Windows OS</div><div class="tool-cat">System</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">📧</span><div class="tool-name">Office 365</div><div class="tool-cat">Productivity</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">☁️</span><div class="tool-name">Azure</div><div class="tool-cat">Cloud</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🟢</span><div class="tool-name">Google Workspace</div><div class="tool-cat">Productivity</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🔒</span><div class="tool-name">Bitdefender</div><div class="tool-cat">Security</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">👁</span><div class="tool-name">Teramind</div><div class="tool-cat">Monitoring</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">💻</span><div class="tool-name">PowerShell</div><div class="tool-cat">Automation</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">📞</span><div class="tool-name">Twilio</div><div class="tool-cat">Communication</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">📲</span><div class="tool-name">Dialpad</div><div class="tool-cat">VoIP</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🔥</span><div class="tool-name">Firebase</div><div class="tool-cat">Database</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🤖</span><div class="tool-name">UiPath</div><div class="tool-cat">RPA</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🌐</span><div class="tool-name">VPN Tools</div><div class="tool-cat">Networking</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🟩</span><div class="tool-name">Node.js</div><div class="tool-cat">Backend</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🍃</span><div class="tool-name">MongoDB</div><div class="tool-cat">Database</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🔑</span><div class="tool-name">JWT / bcrypt</div><div class="tool-cat">Auth</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🧠</span><div class="tool-name">Anthropic API</div><div class="tool-cat">AI</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🧪</span><div class="tool-name">Postman</div><div class="tool-cat">API Testing</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🚀</span><div class="tool-name">Render / Railway</div><div class="tool-cat">Deploy</div></div>
+      <div class="tool-card reveal"><span class="tool-emoji">🐙</span><div class="tool-name">Git &amp; GitHub</div><div class="tool-cat">Version Control</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience">
+  <div class="container">
+    <div class="sec-label">Work Experience</div>
+    <h2 class="sec-title">WHAT I'VE <span>DONE</span></h2>
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">System Engineer / IT Support Engineer</div>
+          <div class="exp-co">Vanan Services · Full-time · Tamil Nadu, India</div>
+        </div>
+        <div class="exp-badge">2024 – PRESENT</div>
+      </div>
+      <div class="exp-items">
+        <div class="exp-item"><span class="exp-dot">▹</span>End-to-end technical support for desktops, laptops, and enterprise applications.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Managed Office 365 and Google Workspace — provisioning, mailbox, licenses, policies.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Designed Teramind monitoring rules, security policies, and alert thresholds.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Configured VPN access including Pritunl MTU troubleshooting for remote employees.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Deployed Bitdefender endpoint security — policies, scans, and threat responses.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Developed PowerShell automation scripts eliminating repetitive IT tasks.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Built TechTrack — full-stack IT management system using Firebase.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Built VananTickets — multi-role ticketing portal with Node.js, MongoDB, JWT.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Built Mac USB Alert System using launchd + Postfix — automatic email alerts to IT team on USB events.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Configured Postfix on macOS as Gmail SMTP relay for automated direct mail triggers on system events.</div>
+        <div class="exp-item"><span class="exp-dot">▹</span>Conducted phishing analysis and team security awareness training.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="sdiv"></div>
+<!-- ══ EDUCATION ══ -->
+<section id="education">
+  <div class="container">
+    <div class="sec-label">Background</div>
+    <h2 class="sec-title">EDUCATION &amp; <span>CERTS</span></h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-deg">B.Tech – Information Technology</div>
+        <div class="edu-school">Mahendra Engineering College, Namakkal</div>
+        <div class="edu-period">2020 – 2024 · CGPA 7.80</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-deg">HSC – Higher Secondary Certificate</div>
+        <div class="edu-school">NLC Higher Secondary School, Neyveli</div>
+        <div class="edu-period">2019 – 2020</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-deg">SSLC – Secondary School Leaving</div>
+        <div class="edu-school">Govt. Higher Secondary School, Keezhakuppam</div>
+        <div class="edu-period">2017 – 2018 · 82.8%</div>
+      </div>
+    </div>
+    <div class="cert-grid" style="margin-top:16px;">
+      <div class="cert-card reveal">
+        <div class="cert-icon">🤖</div>
+        <div><div class="cert-name">UiPath – Diploma of Completion</div><div class="cert-sub">Robotic Process Automation · Online</div></div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">☕</div>
+        <div><div class="cert-name">Java Programming Language</div><div class="cert-sub">Professional Certification</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ── CONTACT ── -->
-<section class="sec" id="contact">
-  <div class="wrap">
-    <div class="lbl slide-left">Get In Touch</div>
-    <h2 class="st slide-left">Let's <span>Connect</span></h2>
-    <div class="cgl">
-      <div>
-        <p class="cintro slide-up">I'm open to full-time roles, contract work, and freelance IT projects. Whether it's system setup, security implementation, automation scripting, or building internal tools — feel free to reach out.</p>
-        <div class="clinks">
-          <a href="mailto:vigneshsigamani3303@gmail.com" class="clink slide-up" style="transition-delay:.05s">
-            <div class="clico">✉</div>
-            <div><div class="cllbl">Email</div><div class="clval">vigneshsigamani3303@gmail.com</div></div>
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-label">Get In Touch</div>
+    <h2 class="sec-title">LET'S <span>CONNECT</span></h2>
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <h3>Open for<br>Opportunities</h3>
+        <p>I'm open to full-time roles, contract work, and freelance IT projects. Whether it's system setup, security, automation, full-stack dev, or AI integration — reach out.</p>
+        <div class="contact-links">
+          <a href="mailto:vigneshsigamani3303@gmail.com" class="c-link">
+            <div class="c-link-ico">📧</div>
+            <div><div class="c-link-label">Email</div><div class="c-link-val">vigneshsigamani3303@gmail.com</div></div>
           </a>
-          <a href="tel:+919360378863" class="clink slide-up" style="transition-delay:.1s">
-            <div class="clico">📱</div>
-            <div><div class="cllbl">Phone</div><div class="clval">+91 93603 78863</div></div>
+          <a href="tel:+919360378863" class="c-link">
+            <div class="c-link-ico">📱</div>
+            <div><div class="c-link-label">Phone</div><div class="c-link-val">+91 93603 78863</div></div>
           </a>
-          <a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank" class="clink slide-up" style="transition-delay:.15s">
-            <div class="clico">🔗</div>
-            <div><div class="cllbl">LinkedIn</div><div class="clval">vignesh-s-923a97295 ↗</div></div>
+          <a href="https://www.linkedin.com/in/vignesh-s-923a97295" target="_blank" class="c-link">
+            <div class="c-link-ico">🔗</div>
+            <div><div class="c-link-label">LinkedIn</div><div class="c-link-val">vignesh-s-923a97295 ↗</div></div>
           </a>
-          <div class="clink slide-up" style="transition-delay:.2s;cursor:default">
-            <div class="clico">📍</div>
-            <div><div class="cllbl">Location</div><div class="clval">Panruti, Cuddalore – 607103, TN</div></div>
+          <div class="c-link">
+            <div class="c-link-ico">📍</div>
+            <div><div class="c-link-label">Location</div><div class="c-link-val">Panruti, Cuddalore – 607103, TN</div></div>
           </div>
         </div>
       </div>
-      <div class="avc slide-right">
-        <div class="avt"><span class="avdot"></span>Currently Available For</div>
-        <ul class="avl">
-          <li><strong style="color:var(--accent)">Web App Development</strong> — HTML/CSS/JS, Firebase, Java apps</li>
-          <li><strong style="color:var(--accent)">IT Support &amp; Sysadmin</strong> — System setup, Office 365, Google Workspace, VPN</li>
-          <li><strong style="color:var(--accent)">Security &amp; Monitoring</strong> — Endpoint protection, Teramind, phishing analysis</li>
-          <li><strong style="color:var(--accent)">Automation &amp; Scripting</strong> — PowerShell scripts, workflow automation</li>
-          <li>Network Troubleshooting &amp; Support</li>
-          <li>Reports &amp; Dashboard Development</li>
-          <li>VPN &amp; Remote Access Setup</li>
-          <li>Monitoring Tool Configuration</li>
-        </ul>
+      <div class="avail-card reveal">
+        <div class="avail-title">Currently Available For</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>Full-Stack Development — Node.js, MongoDB, Express</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>IT Support &amp; Sysadmin — O365, Google Workspace, VPN</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>Security &amp; Monitoring — Bitdefender, Teramind</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>Automation &amp; Scripting — PowerShell, Python, RPA</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>AI Integration — Claude API, OpenAI, Telegram Bots</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>Network Troubleshooting &amp; VPN Setup</div>
+        <div class="avail-row"><span class="avail-arrow">▹</span>Reports &amp; Dashboard Development</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="wrap">
-    <p>© 2025 <span>Vignesh S</span> &nbsp;·&nbsp; System Engineer &nbsp;·&nbsp; Built with care</p>
-  </div>
+  <span>© 2025 <a href="#">Vignesh S</a> · System Engineer &amp; Developer</span>
+  <span style="font-family:'JetBrains Mono',monospace;color:var(--dim);">Built with care &lt;/&gt;</span>
 </footer>
 
 <script>
-// ── SCROLL ANIMATIONS ──
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    // stagger siblings
-    const sibs = [...el.parentElement.children].filter(c =>
-      c.classList.contains('slide-left') ||
-      c.classList.contains('slide-right') ||
-      c.classList.contains('slide-up') ||
-      c.classList.contains('slide-zoom') ||
-      c.classList.contains('rv')
-    );
-    const idx = sibs.indexOf(el);
-    const base = parseFloat(el.style.transitionDelay) || 0;
-    setTimeout(() => el.classList.add('on'), base * 1000 + idx * 55);
-    io.unobserve(el);
-  });
-}, { threshold: 0.08 });
+// ── Custom cursor ──
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
 
-document.querySelectorAll('.slide-left,.slide-right,.slide-up,.slide-zoom,.rv').forEach(el => io.observe(el));
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
 
-// ── WATERFALL REVEAL ──
-const wio = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (!e.isIntersecting) return;
-    setTimeout(() => e.target.classList.add('on'), i * 120);
-    wio.unobserve(e.target);
-  });
-}, { threshold: 0.05 });
-document.querySelectorAll('.wf-item').forEach(el => wio.observe(el));
-
-// ── FLOATING PARTICLES ──
-const pc = document.getElementById('particles');
-const colors = ['rgba(59,130,246,.5)','rgba(16,185,129,.5)','rgba(245,158,11,.4)'];
-for (let i = 0; i < 22; i++) {
-  const p = document.createElement('div');
-  p.className = 'p';
-  const size = Math.random() * 4 + 2;
-  const dx = (Math.random() - 0.5) * 200;
-  p.style.cssText = `
-    width:${size}px;height:${size}px;
-    left:${Math.random()*100}%;
-    background:${colors[Math.floor(Math.random()*colors.length)]};
-    --dx:${dx}px;
-    animation-duration:${Math.random()*14+10}s;
-    animation-delay:${Math.random()*10}s;
-  `;
-  pc.appendChild(p);
+function animateRing(){
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animateRing);
 }
+animateRing();
+
+document.querySelectorAll('a,button,.area-card,.project-row,.tool-card,.about-card,.skill-cat').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width  = '20px';
+    cursor.style.height = '20px';
+    ring.style.width  = '52px';
+    ring.style.height = '52px';
+    ring.style.borderColor = 'var(--glow2)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width  = '12px';
+    cursor.style.height = '12px';
+    ring.style.width  = '36px';
+    ring.style.height = '36px';
+    ring.style.borderColor = 'var(--glow)';
+  });
+});
+
+
+// ── Scroll reveal ──
+function checkReveal(){
+  document.querySelectorAll('.reveal').forEach(function(el){
+    var rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 30){
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', checkReveal, {passive:true});
+window.addEventListener('resize', checkReveal);
+setTimeout(checkReveal, 50);
+setTimeout(checkReveal, 300);
+setTimeout(checkReveal, 700);
+
 </script>
 </body>
 </html>
